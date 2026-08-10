@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,10 +12,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
 }
 
 body {
@@ -50,7 +47,6 @@ body {
     border-radius: 30px;
     background: rgba(255,255,255,.12);
     border: 1px solid rgba(255,255,255,.25);
-    backdrop-filter: blur(8px);
     font-size: 13px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -122,19 +118,16 @@ input[type="number"] {
     background: white;
     color: #111;
     outline: none;
-    transition: .2s;
 }
 
 select:focus,
 input[type="number"]:focus {
     border-color: #ff3b30;
-    box-shadow: 0 0 0 4px rgba(255,59,48,.1);
 }
 
 select:disabled {
     background: #eeeeee;
     color: #999;
-    cursor: not-allowed;
 }
 
 .status {
@@ -143,11 +136,6 @@ select:disabled {
     border-radius: 12px;
     background: #f4f4f4;
     color: #666;
-}
-
-.status.success {
-    background: #e8f8ed;
-    color: #207a38;
 }
 
 .goals {
@@ -183,7 +171,6 @@ select:disabled {
 .goal input:checked + .goal-box {
     border-color: #ff3b30;
     background: #fff4f3;
-    box-shadow: 0 8px 25px rgba(255,59,48,.12);
 }
 
 .goal-icon {
@@ -213,57 +200,14 @@ select:disabled {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(255,59,48,.25);
-    transition: .2s;
 }
 
 .primary-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba(255,59,48,.35);
 }
 
 #results {
     display: none;
-}
-
-.car-showcase {
-    overflow: hidden;
-    padding: 0;
-}
-
-.car-image-wrap {
-    height: 390px;
-    background: #111;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.car-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.car-image-loading {
-    position: absolute;
-    color: white;
-    font-weight: bold;
-    z-index: 1;
-}
-
-.car-info {
-    padding: 25px;
-}
-
-.car-info h2 {
-    margin-bottom: 5px;
-}
-
-.car-info p {
-    color: #777;
 }
 
 .summary {
@@ -272,7 +216,6 @@ select:disabled {
     border-radius: 22px;
     padding: 25px;
     margin-bottom: 22px;
-    box-shadow: 0 20px 50px rgba(0,0,0,.25);
 }
 
 .summary-grid {
@@ -292,7 +235,6 @@ select:disabled {
     color: #aaa;
     font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 .summary-value {
@@ -306,12 +248,6 @@ select:disabled {
     border-radius: 17px;
     padding: 20px;
     margin-bottom: 15px;
-    transition: .2s;
-}
-
-.mod:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0,0,0,.08);
 }
 
 .mod-header {
@@ -326,7 +262,6 @@ select:disabled {
 
 .price {
     font-weight: bold;
-    color: #111;
     white-space: nowrap;
 }
 
@@ -370,14 +305,13 @@ select:disabled {
 .shop-button {
     display: inline-block;
     margin-top: 14px;
-    padding: 11px 17px;
+    padding: 12px 18px;
     background: #111;
     color: white;
     text-decoration: none;
     border-radius: 9px;
     font-weight: bold;
     font-size: 14px;
-    transition: .2s;
 }
 
 .shop-button:hover {
@@ -401,22 +335,15 @@ footer {
 }
 
 @media (max-width: 800px) {
+
     .vehicle-grid,
     .goals,
     .summary-grid {
         grid-template-columns: 1fr;
     }
 
-    .car-image-wrap {
-        height: 280px;
-    }
-
     .hero {
         min-height: 360px;
-    }
-
-    .hero h1 {
-        letter-spacing: -1px;
     }
 
     .container {
@@ -424,272 +351,456 @@ footer {
     }
 }
 </style>
+
 </head>
 
 <body>
 
 <section class="hero">
-    <div class="hero-content">
-        <div class="badge">BUILD • LEARN • MODIFY</div>
 
-        <h1>
-            Customize <span>My Ride</span>
-        </h1>
+```
+<div class="hero-content">
 
-        <p>
-            Choose your vehicle, set your budget, pick your goals,
-            and discover a modification plan built around your car.
-        </p>
+    <div class="badge">
+        BUILD • LEARN • MODIFY
     </div>
+
+    <h1>
+        Customize <span>My Ride</span>
+    </h1>
+
+    <p>
+        Choose your vehicle, set your budget, pick your goals,
+        and find parts that fit your build.
+    </p>
+
+</div>
+```
+
 </section>
 
 <main class="container">
 
 <section class="card">
 
-    <h2>Choose Your Vehicle</h2>
+```
+<h2>Choose Your Vehicle</h2>
 
-    <p class="section-subtitle">
-        Start by selecting the year, make and model of your car.
-    </p>
+<p class="section-subtitle">
+    Select your year, make and model.
+</p>
 
-    <div class="vehicle-grid">
+<div class="vehicle-grid">
 
-        <div>
-            <label for="year">Year</label>
+    <div>
 
-            <select id="year">
-                <option value="">Select year</option>
-            </select>
-        </div>
+        <label for="year">
+            Year
+        </label>
 
-        <div>
-            <label for="make">Make</label>
+        <select id="year">
 
-            <select id="make" disabled>
-                <option value="">Select make</option>
-            </select>
-        </div>
+            <option value="">
+                Select year
+            </option>
 
-        <div>
-            <label for="model">Model</label>
-
-            <select id="model" disabled>
-                <option value="">Select model</option>
-            </select>
-        </div>
+        </select>
 
     </div>
 
-    <div style="margin-top:18px;">
-        <label for="budget">Modification Budget</label>
 
-        <input
-            type="number"
-            id="budget"
-            min="50"
-            placeholder="Example: 1000"
-        >
+    <div>
+
+        <label for="make">
+            Make
+        </label>
+
+        <select id="make" disabled>
+
+            <option value="">
+                Select make
+            </option>
+
+        </select>
+
     </div>
 
-    <div class="status" id="status">
-        Select a year to begin.
+
+    <div>
+
+        <label for="model">
+            Model
+        </label>
+
+        <select id="model" disabled>
+
+            <option value="">
+                Select model
+            </option>
+
+        </select>
+
     </div>
+
+</div>
+
+
+<div style="margin-top:18px;">
+
+    <label for="budget">
+        Modification Budget
+    </label>
+
+    <input
+        type="number"
+        id="budget"
+        min="50"
+        placeholder="Example: 1000"
+    >
+
+</div>
+
+
+<div class="status" id="status">
+    Select a year to begin.
+</div>
+```
 
 </section>
+
+<section class="card">
+
+```
+<h2>
+    What Do You Want To Improve?
+</h2>
+
+<p class="section-subtitle">
+    Select everything you're interested in.
+</p>
+
+
+<div class="goals">
+
+
+    <label class="goal">
+
+        <input
+            type="checkbox"
+            value="appearance"
+        >
+
+        <span class="goal-box">
+
+            <div class="goal-icon">
+                ✨
+            </div>
+
+            <div class="goal-title">
+                Appearance
+            </div>
+
+            <div class="goal-description">
+                Wheels, lighting and exterior styling.
+            </div>
+
+        </span>
+
+    </label>
+
+
+
+    <label class="goal">
+
+        <input
+            type="checkbox"
+            value="performance"
+        >
+
+        <span class="goal-box">
+
+            <div class="goal-icon">
+                🏎️
+            </div>
+
+            <div class="goal-title">
+                Performance
+            </div>
+
+            <div class="goal-description">
+                Intake, exhaust and engine upgrades.
+            </div>
+
+        </span>
+
+    </label>
+
+
+
+    <label class="goal">
+
+        <input
+            type="checkbox"
+            value="handling"
+        >
+
+        <span class="goal-box">
+
+            <div class="goal-icon">
+                🛞
+            </div>
+
+            <div class="goal-title">
+                Handling
+            </div>
+
+            <div class="goal-description">
+                Tires, suspension and braking.
+            </div>
+
+        </span>
+
+    </label>
+
+
+
+    <label class="goal">
+
+        <input
+            type="checkbox"
+            value="interior"
+        >
+
+        <span class="goal-box">
+
+            <div class="goal-icon">
+                🔥
+            </div>
+
+            <div class="goal-title">
+                Interior
+            </div>
+
+            <div class="goal-description">
+                Comfort and interior styling.
+            </div>
+
+        </span>
+
+    </label>
+
+
+
+    <label class="goal">
+
+        <input
+            type="checkbox"
+            value="sound"
+        >
+
+        <span class="goal-box">
+
+            <div class="goal-icon">
+                🔊
+            </div>
+
+            <div class="goal-title">
+                Sound
+            </div>
+
+            <div class="goal-description">
+                Speakers, subwoofers and amplifiers.
+            </div>
+
+        </span>
+
+    </label>
+
+
+
+    <label class="goal">
+
+        <input
+            type="checkbox"
+            value="reliability"
+        >
+
+        <span class="goal-box">
+
+            <div class="goal-icon">
+                🔧
+            </div>
+
+            <div class="goal-title">
+                Reliability
+            </div>
+
+            <div class="goal-description">
+                Maintenance and preventative upgrades.
+            </div>
+
+        </span>
+
+    </label>
+
+</div>
+
+
+<button
+    class="primary-button"
+    onclick="buildPlan()"
+>
+    🚗 Build My Plan
+</button>
+```
+
+</section>
+
+<section id="results">
+
+```
+<div class="summary">
+
+    <h2>
+        Your Build Plan
+    </h2>
+
+
+    <div class="summary-grid">
+
+
+        <div class="summary-item">
+
+            <div class="summary-label">
+                Vehicle
+            </div>
+
+            <div
+                class="summary-value"
+                id="vehicleResult"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <div class="summary-label">
+                Budget
+            </div>
+
+            <div
+                class="summary-value"
+                id="budgetResult"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <div class="summary-label">
+                Estimated Mods
+            </div>
+
+            <div
+                class="summary-value"
+                id="totalResult"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <div class="summary-label">
+                Remaining
+            </div>
+
+            <div
+                class="summary-value"
+                id="remainingResult"
+            >
+                —
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 
 <section class="card">
 
-    <h2>What Do You Want To Improve?</h2>
+    <h2>
+        Recommended Build
+    </h2>
 
     <p class="section-subtitle">
-        Select everything you're interested in.
+        Click "Find Parts on eBay" to see current listings,
+        prices and availability for your selected vehicle.
     </p>
 
-    <div class="goals">
 
-        <label class="goal">
-            <input type="checkbox" value="appearance">
-            <span class="goal-box">
-                <div class="goal-icon">✨</div>
-                <div class="goal-title">Appearance</div>
-                <div class="goal-description">
-                    Wheels, lighting and exterior styling.
-                </div>
-            </span>
-        </label>
+    <div id="modResults"></div>
 
-        <label class="goal">
-            <input type="checkbox" value="performance">
-            <span class="goal-box">
-                <div class="goal-icon">🏎️</div>
-                <div class="goal-title">Performance</div>
-                <div class="goal-description">
-                    Intake, exhaust and engine upgrades.
-                </div>
-            </span>
-        </label>
 
-        <label class="goal">
-            <input type="checkbox" value="handling">
-            <span class="goal-box">
-                <div class="goal-icon">🛞</div>
-                <div class="goal-title">Handling</div>
-                <div class="goal-description">
-                    Tires, suspension and braking.
-                </div>
-            </span>
-        </label>
+    <div class="notice">
 
-        <label class="goal">
-            <input type="checkbox" value="interior">
-            <span class="goal-box">
-                <div class="goal-icon">🔥</div>
-                <div class="goal-title">Interior</div>
-                <div class="goal-description">
-                    Comfort and interior styling.
-                </div>
-            </span>
-        </label>
+        <strong>Important:</strong>
 
-        <label class="goal">
-            <input type="checkbox" value="sound">
-            <span class="goal-box">
-                <div class="goal-icon">🔊</div>
-                <div class="goal-title">Sound</div>
-                <div class="goal-description">
-                    Speakers, subwoofers and amplifiers.
-                </div>
-            </span>
-        </label>
-
-        <label class="goal">
-            <input type="checkbox" value="reliability">
-            <span class="goal-box">
-                <div class="goal-icon">🔧</div>
-                <div class="goal-title">Reliability</div>
-                <div class="goal-description">
-                    Maintenance and preventative upgrades.
-                </div>
-            </span>
-        </label>
+        Always verify fitment, compatibility,
+        installation requirements and local laws
+        before purchasing a part.
 
     </div>
 
-    <button class="primary-button" onclick="buildPlan()">
-        🚗 Build My Plan
-    </button>
+
+    <div style="
+        margin-top:12px;
+        font-size:12px;
+        color:#777;
+    ">
+
+        Some shopping links are affiliate links.
+        Customize My Ride may earn a commission
+        from qualifying purchases.
+
+    </div>
 
 </section>
-
-
-<section id="results">
-
-    <div class="card car-showcase">
-
-        <div class="car-image-wrap">
-
-            <div class="car-image-loading" id="imageLoading">
-                Loading vehicle...
-            </div>
-
-            <img
-                id="carImage"
-                class="car-image"
-                alt="Selected vehicle"
-            >
-
-        </div>
-
-        <div class="car-info">
-
-            <h2 id="carTitle">
-                Your Vehicle
-            </h2>
-
-            <p id="carSubtitle">
-                Your selected vehicle will appear here.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="summary">
-
-        <h2>Your Build Plan</h2>
-
-        <div class="summary-grid">
-
-            <div class="summary-item">
-                <div class="summary-label">Vehicle</div>
-                <div class="summary-value" id="vehicleResult">—</div>
-            </div>
-
-            <div class="summary-item">
-                <div class="summary-label">Budget</div>
-                <div class="summary-value" id="budgetResult">—</div>
-            </div>
-
-            <div class="summary-item">
-                <div class="summary-label">Estimated Mods</div>
-                <div class="summary-value" id="totalResult">—</div>
-            </div>
-
-            <div class="summary-item">
-                <div class="summary-label">Remaining</div>
-                <div class="summary-value" id="remainingResult">—</div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <section class="card">
-
-        <h2>Recommended Build</h2>
-
-        <p class="section-subtitle">
-            These recommendations are organized by difficulty so you
-            can see what you can realistically tackle yourself.
-        </p>
-
-        <div id="modResults"></div>
-
-        <div class="notice">
-            <strong>Important:</strong>
-            Prices are estimates. Always verify fitment,
-            compatibility, installation requirements and local laws
-            before purchasing or installing a part.
-        </div>
-
-        <div style="margin-top:12px;font-size:12px;color:#777;">
-            Some shopping links may be affiliate links. If you purchase
-            through one, Customize My Ride may earn a commission at no
-            additional cost to you.
-        </div>
-
-    </section>
+```
 
 </section>
 
 </main>
 
 <footer>
-    Customize My Ride © 2026 • Build smarter. Learn more. Drive better.
+
+```
+Customize My Ride © 2026
+• Build smarter. Learn more. Drive better.
+```
+
 </footer>
-
-
 <script>
 
 /* =========================================================
-   VEHICLE DATABASE
-   =========================================================
-   The dropdowns are completely local.
-   This means the YEAR selector does NOT depend on an API.
+   CUSTOMIZE MY RIDE
+   COMPLETE JAVASCRIPT
+   ========================================================= */
+
+
+/* =========================================================
+   1. VEHICLE DATABASE
    ========================================================= */
 
 const vehicles = {
@@ -1093,456 +1204,746 @@ const vehicles = {
 
 
 /* =========================================================
-   YEARS 1990-2026
+   2. EPN SETTINGS
+   =========================================================
+
+   THIS IS YOUR EBAY PARTNER NETWORK CAMPAIGN ID.
+
+   Your EPN campaign:
+   5339187339
+
+   You only need ONE campaign ID.
    ========================================================= */
 
-const yearSelect = document.getElementById("year");
-const makeSelect = document.getElementById("make");
-const modelSelect = document.getElementById("model");
-const statusBox = document.getElementById("status");
+const EPN_CAMPAIGN_ID = "5339187339";
 
-for (let year = 2026; year >= 1990; year--) {
+const EBAY_SEARCH_URL =
+    "https://www.ebay.com/sch/i.html";
 
-    const option = document.createElement("option");
 
-    option.value = year;
-    option.textContent = year;
+/* =========================================================
+   3. GET PAGE ELEMENTS
+   ========================================================= */
 
-    yearSelect.appendChild(option);
+const yearSelect =
+    document.getElementById("year");
+
+const makeSelect =
+    document.getElementById("make");
+
+const modelSelect =
+    document.getElementById("model");
+
+const statusBox =
+    document.getElementById("status");
+
+
+/* =========================================================
+   4. CREATE YEARS
+   ========================================================= */
+
+if (yearSelect) {
+
+    for (
+        let year = 2026;
+        year >= 1990;
+        year--
+    ) {
+
+        const option =
+            document.createElement("option");
+
+        option.value = year;
+        option.textContent = year;
+
+        yearSelect.appendChild(option);
+
+    }
+
 }
 
 
 /* =========================================================
-   MAKE SELECTION
-   ========================================================= */
-
-yearSelect.addEventListener("change", function() {
-
-    makeSelect.innerHTML =
-        '<option value="">Select make</option>';
-
-    modelSelect.innerHTML =
-        '<option value="">Select model</option>';
-
-    modelSelect.disabled = true;
-
-    if (!this.value) {
-
-        makeSelect.disabled = true;
-
-        statusBox.textContent =
-            "Select a year to begin.";
-
-        statusBox.className = "status";
-
-        return;
-    }
-
-    makeSelect.disabled = false;
-
-    Object.keys(vehicles)
-        .sort()
-        .forEach(function(make) {
-
-            const option = document.createElement("option");
-
-            option.value = make;
-            option.textContent = formatMake(make);
-
-            makeSelect.appendChild(option);
-
-        });
-
-    statusBox.textContent =
-        "Now select the make of your vehicle.";
-
-    statusBox.className = "status";
-
-});
-
-
-/* =========================================================
-   MODEL SELECTION
-   ========================================================= */
-
-makeSelect.addEventListener("change", function() {
-
-    modelSelect.innerHTML =
-        '<option value="">Select model</option>';
-
-    if (!this.value) {
-
-        modelSelect.disabled = true;
-
-        return;
-    }
-
-    modelSelect.disabled = false;
-
-    vehicles[this.value]
-        .slice()
-        .sort()
-        .forEach(function(model) {
-
-            const option = document.createElement("option");
-
-            option.value = model;
-            option.textContent = model;
-
-            modelSelect.appendChild(option);
-
-        });
-
-    statusBox.textContent =
-        "Now select the model.";
-
-    statusBox.className = "status";
-
-});
-
-
-/* =========================================================
-   MAKE NAME DISPLAY
+   5. FORMAT MAKE NAME
    ========================================================= */
 
 function formatMake(make) {
 
     const names = {
-        MercedesBenz: "Mercedes-Benz",
-        AlfaRomeo: "Alfa Romeo"
+
+        MercedesBenz:
+            "Mercedes-Benz",
+
+        AlfaRomeo:
+            "Alfa Romeo"
+
     };
 
     return names[make] || make;
+
 }
 
 
 /* =========================================================
-   AFFILIATE LINK
-   =========================================================
-
-   IMPORTANT:
-
-   Put your approved eBay Partner Network shopping URL here.
-
-   Example:
-
-   const AFFILIATE_BASE =
-   "YOUR_EBAY_AFFILIATE_LINK";
-
-   The application will append the search terms.
-
-   If you already have individual EPN links, you can later
-   replace the generated links with your individual links.
+   6. YEAR -> MAKE
    ========================================================= */
 
-const AFFILIATE_BASE =
-    "https://www.ebay.com/sch/i.html?_nkw=";
+if (yearSelect) {
+
+    yearSelect.addEventListener(
+        "change",
+        function() {
+
+            makeSelect.innerHTML =
+                '<option value="">Select make</option>';
+
+            modelSelect.innerHTML =
+                '<option value="">Select model</option>';
+
+            makeSelect.disabled = true;
+            modelSelect.disabled = true;
+
+
+            if (!this.value) {
+
+                statusBox.textContent =
+                    "Select a year to begin.";
+
+                statusBox.className =
+                    "status";
+
+                return;
+
+            }
+
+
+            Object.keys(vehicles)
+                .sort()
+                .forEach(function(make) {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = make;
+
+                    option.textContent =
+                        formatMake(make);
+
+                    makeSelect.appendChild(option);
+
+                });
+
+
+            makeSelect.disabled = false;
+
+
+            statusBox.textContent =
+                "Now select the make.";
+
+            statusBox.className =
+                "status";
+
+        }
+    );
+
+}
 
 
 /* =========================================================
-   MODIFICATION DATABASE
+   7. MAKE -> MODEL
+   ========================================================= */
+
+if (makeSelect) {
+
+    makeSelect.addEventListener(
+        "change",
+        function() {
+
+            modelSelect.innerHTML =
+                '<option value="">Select model</option>';
+
+            modelSelect.disabled = true;
+
+
+            if (!this.value) {
+
+                return;
+
+            }
+
+
+            vehicles[this.value]
+                .slice()
+                .sort()
+                .forEach(function(model) {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = model;
+
+                    option.textContent = model;
+
+                    modelSelect.appendChild(option);
+
+                });
+
+
+            modelSelect.disabled = false;
+
+
+            statusBox.textContent =
+                "Now select the model.";
+
+            statusBox.className =
+                "status";
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   8. MODIFICATION DATABASE
    ========================================================= */
 
 const mods = {
 
     appearance: [
+
         {
             name: "LED Exterior Lighting",
+            search: "LED exterior lighting",
             price: 80,
             difficulty: "Easy",
-            why: "Usually straightforward because many lighting upgrades are plug-and-play or require only basic tools.",
-            description: "Improve the look of your vehicle with modern exterior lighting."
+            description:
+                "Modernize the exterior lighting and improve the overall appearance.",
+            why:
+                "Many lighting upgrades are relatively simple and can be installed with basic tools."
         },
+
         {
             name: "Wheels",
+            search: "wheels rims",
             price: 700,
             difficulty: "Medium",
-            why: "Wheel installation itself is relatively simple, but choosing the correct bolt pattern, offset and tire size is important.",
-            description: "A wheel upgrade can completely change the appearance of a car."
+            description:
+                "Change the appearance of your vehicle with a new wheel setup.",
+            why:
+                "Wheel fitment must be checked carefully for bolt pattern, offset and size."
         },
+
         {
             name: "Window Visors",
+            search: "window visors",
             price: 70,
             difficulty: "Easy",
-            why: "Most attach using adhesive or clips and require very little mechanical knowledge.",
-            description: "Adds styling while allowing you to crack your windows in different weather."
+            description:
+                "Add exterior styling while allowing additional window ventilation.",
+            why:
+                "Many sets install with clips or automotive adhesive."
         }
+
     ],
+
 
     performance: [
+
         {
             name: "Performance Air Intake",
+            search: "cold air intake performance air intake",
             price: 250,
             difficulty: "Easy",
-            why: "Many intake systems can be installed with basic hand tools and do not require opening the engine.",
-            description: "Improves airflow into the engine and can change throttle response and sound."
+            description:
+                "Improve airflow into the engine and change intake sound.",
+            why:
+                "Many vehicle-specific intake kits can be installed with basic hand tools."
         },
+
         {
             name: "Cat-Back Exhaust",
+            search: "cat back exhaust performance exhaust",
             price: 600,
             difficulty: "Medium",
-            why: "The installation can involve tight bolts, exhaust hangers and sometimes cutting or welding.",
-            description: "Can improve exhaust sound and airflow."
+            description:
+                "Change exhaust sound and potentially improve exhaust flow.",
+            why:
+                "Installation can involve difficult exhaust bolts and hangers."
         },
+
         {
             name: "ECU Tune",
+            search: "ECU tuner performance tune",
             price: 500,
             difficulty: "Medium",
-            why: "The physical process may be easy, but selecting a safe and vehicle-specific tune is important.",
-            description: "Software tuning can change engine behavior and performance."
+            description:
+                "Modify engine software for changes in engine behavior.",
+            why:
+                "The correct tune must match the exact vehicle and engine."
         }
+
     ],
+
 
     handling: [
+
         {
             name: "Performance Tires",
+            search: "performance tires",
             price: 600,
             difficulty: "Easy",
-            why: "Buying the correct tires is simple, but installation and balancing should be done by a tire shop.",
-            description: "One of the most noticeable upgrades for grip and handling."
+            description:
+                "Increase grip and improve overall handling.",
+            why:
+                "The tires themselves are simple to choose, but professional mounting and balancing are recommended."
         },
+
         {
             name: "Lowering Springs",
+            search: "lowering springs suspension",
             price: 350,
             difficulty: "Hard",
-            why: "Suspension components are under significant spring pressure and require proper tools and knowledge.",
-            description: "Can lower the vehicle and change its handling characteristics."
+            description:
+                "Lower the vehicle and change its handling characteristics.",
+            why:
+                "Suspension springs can be under significant pressure and require proper equipment."
         },
+
         {
             name: "Brake Upgrade",
+            search: "performance brake kit",
             price: 500,
             difficulty: "Medium",
-            why: "Brake work requires careful installation and proper bleeding of the braking system.",
-            description: "Improves braking capability when properly matched to the vehicle."
+            description:
+                "Upgrade braking components for improved braking performance.",
+            why:
+                "Brake installation must be performed correctly and the system may require bleeding."
         }
+
     ],
+
 
     interior: [
+
         {
             name: "LED Interior Lighting",
+            search: "LED interior lights",
             price: 40,
             difficulty: "Easy",
-            why: "Usually requires replacing bulbs or installing simple low-voltage lighting.",
-            description: "An inexpensive way to make the cabin feel newer."
+            description:
+                "Give the cabin a modern appearance with LED lighting.",
+            why:
+                "Many interior bulbs can be replaced without specialized tools."
         },
+
         {
             name: "Floor Mats",
+            search: "floor mats",
             price: 100,
             difficulty: "Easy",
-            why: "No mechanical work is required; simply select mats made for your vehicle.",
-            description: "Protects the interior while adding a cleaner appearance."
+            description:
+                "Protect the interior while improving its appearance.",
+            why:
+                "Installation requires virtually no mechanical work."
         },
+
         {
             name: "Seat Covers",
+            search: "custom seat covers",
             price: 150,
             difficulty: "Easy",
-            why: "Installation normally requires no tools and can be completed at home.",
-            description: "Changes the look of the interior and protects the original seats."
+            description:
+                "Protect the seats and change the appearance of the interior.",
+            why:
+                "Most seat covers can be installed without tools."
         }
+
     ],
+
 
     sound: [
+
         {
             name: "Door Speakers",
+            search: "car door speakers",
             price: 150,
             difficulty: "Medium",
-            why: "Door panels usually need to be removed, and wiring must be handled correctly.",
-            description: "A good first step toward a better audio system."
+            description:
+                "Upgrade the factory speakers for improved sound quality.",
+            why:
+                "Door panels and vehicle-specific wiring may need to be handled."
         },
+
         {
             name: "Subwoofer",
+            search: "car subwoofer",
             price: 250,
             difficulty: "Medium",
-            why: "Requires amplifier wiring and proper power connections.",
-            description: "Adds deeper bass to the factory or aftermarket system."
+            description:
+                "Add deeper bass to your audio system.",
+            why:
+                "Subwoofer installations require power and signal wiring."
         },
+
         {
             name: "Amplifier",
+            search: "car amplifier",
             price: 250,
             difficulty: "Medium",
-            why: "Power and signal wiring must be routed correctly to avoid electrical problems.",
-            description: "Provides additional power to speakers or subwoofers."
+            description:
+                "Provide additional power to speakers or subwoofers.",
+            why:
+                "Correct power and signal wiring is important."
         }
+
     ],
 
+
     reliability: [
+
         {
             name: "Engine Air Filter",
+            search: "engine air filter",
             price: 30,
             difficulty: "Easy",
-            why: "Usually takes only a few minutes and requires little mechanical experience.",
-            description: "A basic maintenance item that helps keep airflow clean."
+            description:
+                "Replace the engine air filter as part of routine maintenance.",
+            why:
+                "Usually one of the easiest maintenance items to replace."
         },
+
         {
             name: "Cabin Air Filter",
+            search: "cabin air filter",
             price: 25,
             difficulty: "Easy",
-            why: "Usually accessible without specialized tools.",
-            description: "Helps keep dust and debris out of the cabin."
+            description:
+                "Help keep dust and debris out of the cabin.",
+            why:
+                "Many vehicles allow easy access to the cabin filter."
         },
+
         {
             name: "Spark Plugs",
+            search: "spark plugs",
             price: 80,
             difficulty: "Medium",
-            why: "The work is manageable on many vehicles but access can vary significantly.",
-            description: "Fresh plugs can help maintain proper engine operation."
+            description:
+                "Replace worn spark plugs to maintain proper engine operation.",
+            why:
+                "Access varies significantly between vehicle models."
         }
+
     ]
 
 };
 
 
 /* =========================================================
-   BUILD PLAN
+   9. CREATE EPN EBAY LINK
+   =========================================================
+
+   This is the important part.
+
+   The app creates a search based on:
+
+   YEAR
+   MAKE
+   MODEL
+   PART
+
+   Then adds:
+
+   campid=5339187339
+
+   So you don't need individual links.
+   ========================================================= */
+
+function createEbayAffiliateLink(
+    year,
+    make,
+    model,
+    partSearch
+) {
+
+    const vehicleSearch =
+        `${year} ${formatMake(make)} ${model}`;
+
+    const completeSearch =
+        `${vehicleSearch} ${partSearch}`;
+
+    const params =
+        new URLSearchParams({
+
+            _nkw: completeSearch,
+
+            mkcid: "1",
+
+            mkrid: "711-53200-19255-0",
+
+            campid: EPN_CAMPAIGN_ID,
+
+            customid:
+                `${year}-${make}-${model}-${partSearch}`
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-"),
+
+            toolid: "10001",
+
+            mkevt: "1"
+
+        });
+
+
+    return EBAY_SEARCH_URL +
+        "?" +
+        params.toString();
+
+}
+
+
+/* =========================================================
+   10. BUILD PLAN
    ========================================================= */
 
 function buildPlan() {
 
-    const year = yearSelect.value;
-    const make = makeSelect.value;
-    const model = modelSelect.value;
-    const budget = Number(document.getElementById("budget").value);
+    const year =
+        yearSelect.value;
+
+    const make =
+        makeSelect.value;
+
+    const model =
+        modelSelect.value;
+
+    const budgetInput =
+        document.getElementById("budget");
+
+    const budget =
+        Number(budgetInput.value);
+
+
+    /* -----------------------------------------
+       VALIDATION
+       ----------------------------------------- */
 
     if (!year) {
 
-        alert("Please select a year first.");
+        alert(
+            "Please select a year first."
+        );
 
         yearSelect.focus();
 
         return;
+
     }
+
 
     if (!make) {
 
-        alert("Please select a make.");
+        alert(
+            "Please select a make."
+        );
 
         makeSelect.focus();
 
         return;
+
     }
+
 
     if (!model) {
 
-        alert("Please select a model.");
+        alert(
+            "Please select a model."
+        );
 
         modelSelect.focus();
 
         return;
+
     }
+
 
     if (!budget || budget < 50) {
 
-        alert("Please enter a modification budget of at least $50.");
+        alert(
+            "Please enter a budget of at least $50."
+        );
 
-        document.getElementById("budget").focus();
+        budgetInput.focus();
 
         return;
+
     }
 
 
     const selectedGoals =
         Array.from(
             document.querySelectorAll(
-                '.goal input:checked'
+                ".goal input:checked"
             )
-        ).map(input => input.value);
+        ).map(
+            input => input.value
+        );
 
 
-    if (selectedGoals.length === 0) {
+    if (
+        selectedGoals.length === 0
+    ) {
 
-        alert("Please choose at least one build goal.");
+        alert(
+            "Please choose at least one build goal."
+        );
 
         return;
+
     }
 
 
+    /* -----------------------------------------
+       COLLECT MODS
+       ----------------------------------------- */
+
     const selectedMods = [];
 
-    selectedGoals.forEach(function(goal) {
 
-        if (mods[goal]) {
+    selectedGoals.forEach(
+        function(goal) {
 
-            mods[goal].forEach(function(mod) {
+            if (!mods[goal]) {
 
-                selectedMods.push({
-                    ...mod,
-                    goal: goal
-                });
+                return;
 
-            });
+            }
+
+
+            mods[goal].forEach(
+                function(mod) {
+
+                    selectedMods.push({
+
+                        ...mod,
+
+                        goal: goal
+
+                    });
+
+                }
+            );
 
         }
-
-    });
-
-
-    let total = 0;
-
-    selectedMods.forEach(function(mod) {
-
-        if (total + mod.price <= budget) {
-
-            total += mod.price;
-
-        }
-
-    });
-
-
-    const remaining = budget - total;
-
-
-    document.getElementById("vehicleResult").textContent =
-        year + " " + formatMake(make) + " " + model;
-
-    document.getElementById("budgetResult").textContent =
-        "$" + budget.toLocaleString();
-
-    document.getElementById("totalResult").textContent =
-        "$" + total.toLocaleString();
-
-    document.getElementById("remainingResult").textContent =
-        "$" + remaining.toLocaleString();
-
-
-    document.getElementById("carTitle").textContent =
-        year + " " + formatMake(make) + " " + model;
-
-    document.getElementById("carSubtitle").textContent =
-        "Your selected vehicle";
-
-
-    displayMods(
-        selectedMods,
-        budget
     );
 
 
-    document.getElementById("results").style.display =
-        "block";
+    /* -----------------------------------------
+       CALCULATE BUDGET
+       ----------------------------------------- */
+
+    let total = 0;
 
 
-    loadVehicleImage(
+    selectedMods.forEach(
+        function(mod) {
+
+            if (
+                total + mod.price
+                <= budget
+            ) {
+
+                total += mod.price;
+
+            }
+
+        }
+    );
+
+
+    const remaining =
+        budget - total;
+
+
+    /* -----------------------------------------
+       UPDATE SUMMARY
+       ----------------------------------------- */
+
+    document.getElementById(
+        "vehicleResult"
+    ).textContent =
+        `${year} ${formatMake(make)} ${model}`;
+
+
+    document.getElementById(
+        "budgetResult"
+    ).textContent =
+        `$${budget.toLocaleString()}`;
+
+
+    document.getElementById(
+        "totalResult"
+    ).textContent =
+        `$${total.toLocaleString()}`;
+
+
+    document.getElementById(
+        "remainingResult"
+    ).textContent =
+        `$${remaining.toLocaleString()}`;
+
+
+    /* -----------------------------------------
+       DISPLAY MODS
+       ----------------------------------------- */
+
+    displayMods(
+        selectedMods,
+        budget,
+        year,
         make,
         model
     );
 
 
-    document.getElementById("results").scrollIntoView({
-        behavior: "smooth"
-    });
+    /* -----------------------------------------
+       SHOW RESULTS
+       ----------------------------------------- */
+
+    const results =
+        document.getElementById("results");
+
+
+    if (results) {
+
+        results.style.display =
+            "block";
+
+        results.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
 
 }
 
 
 /* =========================================================
-   DISPLAY MODS
+   11. DISPLAY RECOMMENDATIONS
    ========================================================= */
 
-function displayMods(selectedMods, budget) {
+function displayMods(
+    selectedMods,
+    budget,
+    year,
+    make,
+    model
+) {
 
     const container =
         document.getElementById("modResults");
+
 
     container.innerHTML = "";
 
@@ -1550,137 +1951,227 @@ function displayMods(selectedMods, budget) {
     let runningTotal = 0;
 
 
-    selectedMods.forEach(function(mod) {
-
-        const affordable =
-            runningTotal + mod.price <= budget;
-
-        if (affordable) {
-
-            runningTotal += mod.price;
-
-        }
+    selectedMods.forEach(
+        function(mod) {
 
 
-        const div =
-            document.createElement("div");
-
-        div.className =
-            "mod";
+            const affordable =
+                runningTotal + mod.price
+                <= budget;
 
 
-        const difficultyClass =
-            mod.difficulty.toLowerCase();
+            if (affordable) {
 
+                runningTotal += mod.price;
 
-        const searchTerm =
-            encodeURIComponent(
-                mod.name + " " +
-                formatMake(makeSelect.value) + " " +
-                modelSelect.value
-            );
-
-
-        const shoppingUrl =
-            AFFILIATE_BASE + searchTerm;
-
-
-        div.innerHTML = `
-
-            <div class="mod-header">
-
-                <h3>${mod.name}</h3>
-
-                <div class="price">
-                    ~$${mod.price.toLocaleString()}
-                </div>
-
-            </div>
-
-            <span class="difficulty ${difficultyClass}">
-                ${mod.difficulty}
-            </span>
-
-            <p class="mod-description">
-                ${mod.description}
-            </p>
-
-            <div class="why">
-                <strong>
-                    Why is this ${mod.difficulty.toLowerCase()}?
-                </strong>
-                ${mod.why}
-            </div>
-
-            ${
-                affordable
-                ?
-                `
-                <a
-                    class="shop-button"
-                    href="${shoppingUrl}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    🛒 Find Parts
-                </a>
-                `
-                :
-                `
-                <div style="
-                    margin-top:12px;
-                    padding:10px;
-                    border-radius:9px;
-                    background:#fff4d6;
-                    color:#765700;
-                    font-size:13px;
-                ">
-                    This recommendation is above the remaining budget.
-                </div>
-                `
             }
 
-        `;
+
+            /* --------------------------------
+               CREATE EBAY LINK
+               -------------------------------- */
+
+            const ebayLink =
+                createEbayAffiliateLink(
+                    year,
+                    make,
+                    model,
+                    mod.search
+                );
 
 
-        container.appendChild(div);
+            /* --------------------------------
+               CREATE MOD CARD
+               -------------------------------- */
 
-    });
+            const div =
+                document.createElement("div");
+
+
+            div.className =
+                "mod";
+
+
+            const difficultyClass =
+                mod.difficulty
+                    .toLowerCase();
+
+
+            div.innerHTML = `
+
+                <div class="mod-header">
+
+                    <h3>
+                        ${escapeHTML(mod.name)}
+                    </h3>
+
+                    <div class="price">
+
+                        ~$${mod.price.toLocaleString()}
+
+                    </div>
+
+                </div>
+
+
+                <span
+                    class="difficulty ${difficultyClass}"
+                >
+
+                    ${escapeHTML(mod.difficulty)}
+
+                </span>
+
+
+                <p class="mod-description">
+
+                    ${escapeHTML(
+                        mod.description
+                    )}
+
+                </p>
+
+
+                <div class="why">
+
+                    <strong>
+                        Why is this
+                        ${mod.difficulty.toLowerCase()}?
+                    </strong>
+
+                    ${escapeHTML(mod.why)}
+
+                </div>
+
+
+                ${
+                    affordable
+
+                    ?
+
+                    `
+
+                    <a
+                        class="shop-button"
+                        href="${ebayLink}"
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                    >
+
+                        🛒 Find Parts on eBay
+
+                    </a>
+
+                    <div
+                        style="
+                            margin-top:8px;
+                            font-size:12px;
+                            color:#777;
+                        "
+                    >
+
+                        Opens current eBay listings
+                        for your selected vehicle.
+
+                    </div>
+
+                    `
+
+                    :
+
+                    `
+
+                    <div
+                        style="
+                            margin-top:12px;
+                            padding:10px;
+                            border-radius:9px;
+                            background:#fff4d6;
+                            color:#765700;
+                            font-size:13px;
+                        "
+                    >
+
+                        This recommendation is
+                        above your remaining budget.
+
+                    </div>
+
+                    `
+                }
+
+            `;
+
+
+            container.appendChild(div);
+
+        }
+    );
 
 }
 
 
 /* =========================================================
-   VEHICLE IMAGE
-   =========================================================
-
-   We use Wikimedia's public API to find an image based on
-   the selected make/model.
-
-   This is much safer than hard-coding one image URL for
-   hundreds of vehicles.
-
-   IMPORTANT:
-   The dropdowns themselves NEVER depend on this API.
-
-   Therefore, even if Wikimedia is temporarily unavailable,
-   your year/make/model selector will still work.
+   12. SAFELY DISPLAY TEXT
    ========================================================= */
 
-async function loadVehicleImage(make, model) {
+function escapeHTML(text) {
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   13. OPTIONAL VEHICLE IMAGE
+   =========================================================
+
+   This does NOT affect the vehicle selector or eBay links.
+
+   It tries Wikimedia first.
+
+   If no appropriate image is found,
+   it simply hides the image instead of
+   showing the wrong vehicle.
+   ========================================================= */
+
+async function loadVehicleImage(
+    make,
+    model
+) {
 
     const image =
-        document.getElementById("carImage");
+        document.getElementById(
+            "carImage"
+        );
 
     const loading =
-        document.getElementById("imageLoading");
+        document.getElementById(
+            "imageLoading"
+        );
 
 
-    loading.style.display =
-        "block";
+    if (!image) {
 
-    loading.textContent =
-        "Loading vehicle image...";
+        return;
+
+    }
+
+
+    if (loading) {
+
+        loading.style.display =
+            "block";
+
+        loading.textContent =
+            "Finding vehicle image...";
+
+    }
 
 
     image.style.display =
@@ -1688,33 +2179,47 @@ async function loadVehicleImage(make, model) {
 
 
     const searchName =
-        formatMake(make) + " " + model;
+        `${formatMake(make)} ${model}`;
 
 
     try {
 
-        const url =
+        const apiURL =
             "https://commons.wikimedia.org/w/api.php" +
+
             "?action=query" +
+
             "&generator=search" +
+
             "&gsrsearch=" +
-            encodeURIComponent(searchName + " car") +
+            encodeURIComponent(
+                searchName + " automobile"
+            ) +
+
             "&gsrnamespace=6" +
-            "&gsrlimit=10" +
+
+            "&gsrlimit=20" +
+
             "&prop=imageinfo" +
+
             "&iiprop=url" +
+
             "&iiurlwidth=1200" +
+
             "&format=json" +
+
             "&origin=*";
 
 
         const response =
-            await fetch(url);
+            await fetch(apiURL);
 
 
         if (!response.ok) {
 
-            throw new Error("Image request failed");
+            throw new Error(
+                "Image request failed"
+            );
 
         }
 
@@ -1726,69 +2231,111 @@ async function loadVehicleImage(make, model) {
         const pages =
             data.query &&
             data.query.pages
-                ?
-                Object.values(data.query.pages)
-                :
-                [];
+
+            ?
+
+            Object.values(
+                data.query.pages
+            )
+
+            :
+
+            [];
 
 
-        if (pages.length > 0) {
+        const usablePage =
+            pages.find(
+                function(page) {
 
-            const page =
-                pages.find(function(page) {
+                    return (
 
-                    return page.imageinfo &&
-                           page.imageinfo[0] &&
-                           page.imageinfo[0].thumburl;
+                        page.imageinfo &&
 
-                });
+                        page.imageinfo[0] &&
+
+                        page.imageinfo[0].thumburl
+
+                    );
+
+                }
+            );
 
 
-            if (page) {
+        if (
+            usablePage &&
+            usablePage.imageinfo &&
+            usablePage.imageinfo[0]
+        ) {
 
-                image.src =
-                    page.imageinfo[0].thumburl;
+            const imageURL =
+                usablePage.imageinfo[0].thumburl;
 
-                image.onload =
-                    function() {
+
+            image.onload =
+                function() {
+
+                    image.style.display =
+                        "block";
+
+
+                    if (loading) {
 
                         loading.style.display =
                             "none";
 
-                        image.style.display =
-                            "block";
+                    }
 
-                    };
+                };
 
-                image.onerror =
-                    function() {
 
-                        showFallbackImage(
-                            make,
-                            model
-                        );
+            image.onerror =
+                function() {
 
-                    };
+                    image.style.display =
+                        "none";
 
-                return;
 
-            }
+                    if (loading) {
+
+                        loading.textContent =
+                            "Vehicle image unavailable";
+
+                    }
+
+                };
+
+
+            image.src =
+                imageURL;
+
+
+            return;
 
         }
 
 
-        showFallbackImage(
-            make,
-            model
-        );
+        if (loading) {
+
+            loading.textContent =
+                "Vehicle image unavailable";
+
+        }
 
 
     } catch (error) {
 
-        showFallbackImage(
-            make,
-            model
+        console.log(
+            "Vehicle image unavailable:",
+            error
         );
+
+
+        if (loading) {
+
+            loading.textContent =
+                "Vehicle image unavailable";
+
+        }
 
     }
 
@@ -1796,63 +2343,93 @@ async function loadVehicleImage(make, model) {
 
 
 /* =========================================================
-   IMAGE FALLBACK
-   ========================================================= */
-
-function showFallbackImage(make, model) {
-
-    const image =
-        document.getElementById("carImage");
-
-    const loading =
-        document.getElementById("imageLoading");
-
-
-    /*
-       This fallback is intentionally generic rather than
-       showing the wrong vehicle.
-    */
-
-    image.src =
-        "https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=85";
-
-
-    image.onload =
-        function() {
-
-            loading.textContent =
-                "Vehicle image";
-
-            loading.style.display =
-                "none";
-
-            image.style.display =
-                "block";
-
-        };
-
-}
-
-
-/* =========================================================
-   INITIALIZE
+   14. INITIALIZE
    ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        yearSelect.value = "";
+        if (yearSelect) {
 
-        makeSelect.disabled = true;
+            yearSelect.value = "";
 
-        modelSelect.disabled = true;
+        }
 
-        statusBox.textContent =
-            "Select a year to begin.";
+
+        if (makeSelect) {
+
+            makeSelect.disabled = true;
+
+        }
+
+
+        if (modelSelect) {
+
+            modelSelect.disabled = true;
+
+        }
+
+
+        if (statusBox) {
+
+            statusBox.textContent =
+                "Select a year to begin.";
+
+            statusBox.className =
+                "status";
+
+        }
 
     }
 );
+
+
+/* =========================================================
+   15. OPTIONAL: LOAD IMAGE WHEN PLAN IS BUILT
+   =========================================================
+
+   This replaces buildPlan with a wrapped version so
+   your existing button:
+
+       onclick="buildPlan()"
+
+   continues to work.
+   ========================================================= */
+
+const originalBuildPlan =
+    buildPlan;
+
+
+buildPlan = function() {
+
+    originalBuildPlan();
+
+
+    const year =
+        yearSelect.value;
+
+    const make =
+        makeSelect.value;
+
+    const model =
+        modelSelect.value;
+
+
+    if (
+        year &&
+        make &&
+        model
+    ) {
+
+        loadVehicleImage(
+            make,
+            model
+        );
+
+    }
+
+};
 
 </script>
 
