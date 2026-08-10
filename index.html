@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Customize My Ride</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f5f7;
+    color: #151515;
+    line-height: 1.5;
+}
+
+header {
+    background: #111;
+    color: white;
+    padding: 35px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #bbb;
+}
+
+.container {
+    width: min(950px, 92%);
+    margin: 30px auto 60px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+}
+
+h2 {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 7px;
+}
+
+select,
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+}
+
+select:disabled {
+    background: #eee;
+    color: #888;
+}
+
+.vehicle-status {
+    margin-top: 15px;
+    padding: 12px;
+    background: #f1f1f1;
+    border-radius: 8px;
+    color: #555;
+}
+
+.vehicle-preview {
+    display: none;
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #111;
+}
+
+.vehicle-preview img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+}
+
+.vehicle-preview-info {
+    padding: 15px;
+    color: white;
+}
+
+.goal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.goal {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.goal:hover {
+    border-color: #111;
+    background: #fafafa;
+}
+
+.goal input {
+    width: auto;
+    margin-right: 8px;
+}
+
+.goal-title {
+    font-weight: bold;
+}
+
+.goal-description {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 9px;
+    background: #111;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #333;
+}
+
+#results {
+    display: none;
+}
+
+.summary {
+    background: #111;
+    color: white;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 10px 0;
+}
+
+.good {
+    color: #72df92;
+}
+
+.warning-text {
+    color: #ffcf70;
+}
+
+.mod {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.mod h3 {
+    margin-bottom: 5px;
+}
+
+.mod-price {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.difficulty {
+    display: inline-block;
+    margin-top: 9px;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.easy {
+    background: #dff5e4;
+    color: #207a38;
+}
+
+.medium {
+    background: #fff1cc;
+    color: #8a6200;
+}
+
+.hard {
+    background: #ffdede;
+    color: #a00000;
+}
+
+.mod-description {
+    color: #555;
+    margin-top: 10px;
+}
+
+.why {
+    margin-top: 10px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.shop-button {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 11px 18px;
+    background: #111;
+    color: white;
+    text-decoration: none;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.shop-button:hover {
+    background: #333;
+}
+
+.notice {
+    margin-top: 18px;
+    padding: 13px;
+    background: #fff5d6;
+    color: #705400;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.empty {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+
+@media (max-width: 600px) {
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    .card {
+        padding: 19px;
+    }
+
+    .summary-row {
+        flex-direction: column;
+        gap: 2px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Customize My Ride</h1>
+    <p>Build your car around your goals and your budget.</p>
+</header>
+
+<main class="container">
+
+<section class="card">
+
+    <h2>Your Vehicle</h2>
+
+    <label for="year">Year</label>
+    <select id="year">
+        <option value="">Select year</option>
+    </select>
+
+    <label for="make">Make</label>
+    <select id="make" disabled>
+        <option value="">Select make</option>
+    </select>
+
+    <label for="model">Model</label>
+    <select id="model" disabled>
+        <option value="">Select model</option>
+    </select>
+
+    <label for="budget">Modification Budget</label>
+    <input
+        type="number"
+        id="budget"
+        min="0"
+        placeholder="Example: 1000"
+    >
+
+    <div class="vehicle-status" id="vehicleStatus">
+        Select a year to begin.
+    </div>
+
+    <div class="vehicle-preview" id="vehiclePreview">
+
+        <img
+            id="vehicleImage"
+            src=""
+            alt="Selected vehicle"
+        >
+
+        <div class="vehicle-preview-info">
+            <strong id="vehiclePreviewName"></strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="card">
+
+    <h2>What do you want to improve?</h2>
+
+    <div class="goal-grid">
+
+        <label class="goal">
+            <input type="checkbox" value="appearance">
+            <span class="goal-title">Appearance</span>
+            <div class="goal-description">
+                Wheels, lighting and exterior styling
+            </div>
+        </label>
+
+        <label class="goal">
+            <input type="checkbox" value="performance">
+            <span class="goal-title">Performance</span>
+            <div class="goal-description">
+                Intake, exhaust and tuning
+            </div>
+        </label>
+
+        <label class="goal">
+            <input type="checkbox" value="handling">
+            <span class="goal-title">Handling</span>
+            <div class="goal-description">
+                Tires, suspension and braking
+            </div>
+        </label>
+
+        <label class="goal">
+            <input type="checkbox" value="interior">
+            <span class="goal-title">Interior</span>
+            <div class="goal-description">
+                Interior styling and comfort
+            </div>
+        </label>
+
+        <label class="goal">
+            <input type="checkbox" value="sound">
+            <span class="goal-title">Sound</span>
+            <div class="goal-description">
+                Speakers, subwoofers and amplifiers
+            </div>
+        </label>
+
+        <label class="goal">
+            <input type="checkbox" value="reliability">
+            <span class="goal-title">Reliability</span>
+            <div class="goal-description">
+                Maintenance and preventative work
+            </div>
+        </label>
+
+    </div>
+
+    <button id="buildButton">
+        Build My Plan
+    </button>
+
+</section>
+
+
+<section id="results">
+
+    <div class="summary">
+
+        <h2>Your Build Plan</h2>
+
+        <div class="summary-row">
+            <span>Vehicle</span>
+            <strong id="vehicleResult"></strong>
+        </div>
+
+        <div class="summary-row">
+            <span>Budget</span>
+            <strong id="budgetResult"></strong>
+        </div>
+
+        <div class="summary-row">
+            <span>Recommended Mods</span>
+            <strong id="totalResult"></strong>
+        </div>
+
+        <div class="summary-row">
+            <span>Remaining</span>
+            <strong id="remainingResult"></strong>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Recommended Build</h2>
+
+        <div id="modResults"></div>
+
+        <div class="notice">
+
+            <strong>Important:</strong>
+            Prices are estimates. Always verify fitment,
+            installation requirements, vehicle compatibility
+            and local laws before purchasing a part.
+
+        </div>
+
+        <div class="notice">
+
+            Some shopping links may be affiliate links.
+            If you purchase through an affiliate link,
+            Customize My Ride may earn a commission at
+            no additional cost to you.
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   VEHICLE DATABASE
+===================================================== */
+
+const vehicles = {
+
+    1990: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "Prelude",
+            "CRX"
+        ],
+        "Toyota": [
+            "Supra",
+            "Celica",
+            "Camry",
+            "Corolla",
+            "MR2"
+        ],
+        "Nissan": [
+            "240SX",
+            "300ZX",
+            "Skyline"
+        ],
+        "Mazda": [
+            "RX-7",
+            "Miata"
+        ],
+        "Mitsubishi": [
+            "Eclipse",
+            "3000GT",
+            "Galant"
+        ],
+        "Ford": [
+            "Mustang",
+            "Escort"
+        ],
+        "Chevrolet": [
+            "Camaro",
+            "Corvette"
+        ]
+    },
+
+    1991: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "Prelude"
+        ],
+        "Toyota": [
+            "Supra",
+            "Celica",
+            "Camry",
+            "Corolla",
+            "MR2"
+        ],
+        "Nissan": [
+            "240SX",
+            "300ZX",
+            "Sentra"
+        ],
+        "Mazda": [
+            "RX-7",
+            "Miata"
+        ],
+        "Mitsubishi": [
+            "Eclipse",
+            "3000GT",
+            "Galant"
+        ]
+    },
+
+    1992: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "Prelude"
+        ],
+        "Toyota": [
+            "Supra",
+            "Celica",
+            "Camry",
+            "Corolla",
+            "MR2"
+        ],
+        "Nissan": [
+            "240SX",
+            "300ZX",
+            "Sentra"
+        ],
+        "Mazda": [
+            "RX-7",
+            "Miata"
+        ],
+        "Mitsubishi": [
+            "Eclipse",
+            "3000GT"
+        ]
+    },
+
+    1995: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "Prelude",
+            "Integra"
+        ],
+        "Toyota": [
+            "Supra",
+            "Celica",
+            "Camry",
+            "Corolla"
+        ],
+        "Nissan": [
+            "240SX",
+            "300ZX",
+            "Maxima"
+        ],
+        "Mazda": [
+            "RX-7",
+            "Miata"
+        ],
+        "Mitsubishi": [
+            "Eclipse",
+            "3000GT",
+            "Galant"
+        ]
+    },
+
+    2000: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "Prelude",
+            "S2000"
+        ],
+        "Toyota": [
+            "Supra",
+            "Celica",
+            "Camry",
+            "Corolla",
+            "MR2",
+            "Avalon"
+        ],
+        "Nissan": [
+            "240SX",
+            "300ZX",
+            "Maxima",
+            "Sentra"
+        ],
+        "Mitsubishi": [
+            "Eclipse",
+            "3000GT",
+            "Galant"
+        ],
+        "Mazda": [
+            "Miata",
+            "RX-7",
+            "Protege"
+        ],
+        "Subaru": [
+            "Impreza",
+            "Legacy"
+        ],
+        "Ford": [
+            "Mustang",
+            "Focus",
+            "Taurus"
+        ]
+    },
+
+    2005: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "S2000",
+            "CR-V"
+        ],
+        "Toyota": [
+            "Camry",
+            "Corolla",
+            "Celica",
+            "Tacoma",
+            "4Runner"
+        ],
+        "Nissan": [
+            "350Z",
+            "Altima",
+            "Maxima",
+            "Sentra",
+            "Frontier"
+        ],
+        "Mitsubishi": [
+            "Eclipse",
+            "Lancer",
+            "Outlander"
+        ],
+        "Subaru": [
+            "WRX",
+            "Impreza",
+            "Legacy",
+            "Forester"
+        ],
+        "Mazda": [
+            "Mazda3",
+            "RX-8",
+            "Miata"
+        ],
+        "Ford": [
+            "Mustang",
+            "Focus",
+            "F-150"
+        ],
+        "Chevrolet": [
+            "Corvette",
+            "Camaro",
+            "Impala"
+        ]
+    },
+
+    2010: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "CR-V",
+            "Fit"
+        ],
+        "Toyota": [
+            "Camry",
+            "Corolla",
+            "Tacoma",
+            "4Runner",
+            "RAV4"
+        ],
+        "Nissan": [
+            "370Z",
+            "Altima",
+            "Maxima",
+            "Sentra",
+            "GT-R"
+        ],
+        "Mitsubishi": [
+            "Lancer",
+            "Eclipse",
+            "Outlander",
+            "Outlander Sport"
+        ],
+        "Subaru": [
+            "WRX",
+            "Impreza",
+            "Legacy",
+            "Forester"
+        ],
+        "Mazda": [
+            "Mazda3",
+            "Mazda6",
+            "Miata",
+            "CX-7"
+        ],
+        "Ford": [
+            "Mustang",
+            "Focus",
+            "Fusion",
+            "F-150"
+        ],
+        "Chevrolet": [
+            "Camaro",
+            "Corvette",
+            "Cruze",
+            "Malibu"
+        ]
+    },
+
+    2015: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "CR-V",
+            "Fit"
+        ],
+        "Toyota": [
+            "Camry",
+            "Corolla",
+            "86",
+            "Tacoma",
+            "4Runner",
+            "RAV4"
+        ],
+        "Nissan": [
+            "370Z",
+            "Altima",
+            "Maxima",
+            "Sentra",
+            "GT-R"
+        ],
+        "Mitsubishi": [
+            "Lancer",
+            "Outlander",
+            "Outlander Sport"
+        ],
+        "Subaru": [
+            "WRX",
+            "BRZ",
+            "Impreza",
+            "Forester"
+        ],
+        "Mazda": [
+            "Mazda3",
+            "Mazda6",
+            "Miata",
+            "CX-5"
+        ],
+        "Ford": [
+            "Mustang",
+            "Focus",
+            "Fusion",
+            "F-150"
+        ],
+        "Chevrolet": [
+            "Camaro",
+            "Corvette",
+            "Cruze",
+            "Malibu"
+        ]
+    },
+
+    2016: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "CR-V"
+        ],
+        "Toyota": [
+            "Camry",
+            "Corolla",
+            "86",
+            "Tacoma",
+            "4Runner",
+            "RAV4"
+        ],
+        "Nissan": [
+            "370Z",
+            "Altima",
+            "Maxima",
+            "Sentra",
+            "GT-R"
+        ],
+        "Mitsubishi": [
+            "Lancer",
+            "Outlander",
+            "Outlander Sport"
+        ],
+        "Subaru": [
+            "WRX",
+            "BRZ",
+            "Impreza",
+            "Forester"
+        ],
+        "Mazda": [
+            "Mazda3",
+            "Mazda6",
+            "Miata",
+            "CX-5"
+        ],
+        "Ford": [
+            "Mustang",
+            "Focus",
+            "Fusion",
+            "F-150"
+        ],
+        "Chevrolet": [
+            "Camaro",
+            "Corvette",
+            "Cruze",
+            "Malibu"
+        ]
+    },
+
+    2020: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "CR-V",
+            "Pilot"
+        ],
+        "Toyota": [
+            "Camry",
+            "Corolla",
+            "GR Supra",
+            "86",
+            "Tacoma",
+            "4Runner",
+            "RAV4"
+        ],
+        "Nissan": [
+            "370Z",
+            "Altima",
+            "Maxima",
+            "Sentra",
+            "GT-R"
+        ],
+        "Mitsubishi": [
+            "Outlander",
+            "Outlander Sport",
+            "Eclipse Cross"
+        ],
+        "Subaru": [
+            "WRX",
+            "BRZ",
+            "Impreza",
+            "Forester"
+        ],
+        "Mazda": [
+            "Mazda3",
+            "Mazda6",
+            "Miata",
+            "CX-5"
+        ],
+        "Ford": [
+            "Mustang",
+            "F-150",
+            "Ranger",
+            "Bronco"
+        ],
+        "Chevrolet": [
+            "Camaro",
+            "Corvette",
+            "Malibu",
+            "Silverado"
+        ]
+    },
+
+    2025: {
+        "Honda": [
+            "Civic",
+            "Accord",
+            "CR-V",
+            "Pilot"
+        ],
+        "Toyota": [
+            "Camry",
+            "Corolla",
+            "GR86",
+            "GR Supra",
+            "Tacoma",
+            "4Runner",
+            "RAV4"
+        ],
+        "Nissan": [
+            "Z",
+            "Sentra",
+            "Altima",
+            "GT-R"
+        ],
+        "Mitsubishi": [
+            "Outlander",
+            "Outlander Sport",
+            "Eclipse Cross"
+        ],
+        "Subaru": [
+            "WRX",
+            "BRZ",
+            "Impreza",
+            "Crosstrek",
+            "Forester"
+        ],
+        "Mazda": [
+            "Mazda3",
+            "CX-5",
+            "CX-50",
+            "Miata"
+        ],
+        "Ford": [
+            "Mustang",
+            "F-150",
+            "Ranger",
+            "Bronco",
+            "Maverick"
+        ],
+        "Chevrolet": [
+            "Camaro",
+            "Corvette",
+            "Silverado",
+            "Equinox"
+        ]
+    }
+};
+
+
+/* =====================================================
+   MODIFICATION DATABASE
+===================================================== */
+
+const mods = {
+
+    appearance: [
+
+        {
+            name: "LED Lighting",
+            price: 120,
+            difficulty: "Easy",
+            description: "Upgrade exterior or interior lighting for a cleaner appearance.",
+            why: "This is usually easier because many LED replacements are direct-fit and require basic tools."
+        },
+
+        {
+            name: "Wheels & Tires",
+            price: 850,
+            difficulty: "Medium",
+            description: "A major visual upgrade that can also improve handling.",
+            why: "Choosing the correct wheel size, offset and tire size is important. Professional installation is recommended."
+        },
+
+        {
+            name: "Exterior Styling",
+            price: 400,
+            difficulty: "Medium",
+            description: "Add vehicle-specific lips, spoilers, grilles or other exterior parts.",
+            why: "Difficulty depends heavily on the vehicle and whether drilling, fitting or painting is required."
+        }
+    ],
+
+    performance: [
+
+        {
+            name: "Performance Intake",
+            price: 300,
+            difficulty: "Easy",
+            description: "Improves airflow into the engine on compatible vehicles.",
+            why: "Many intake kits are designed as bolt-on replacements and can be installed with common hand tools."
+        },
+
+        {
+            name: "Cat-Back Exhaust",
+            price: 700,
+            difficulty: "Medium",
+            description: "Changes exhaust sound and can improve exhaust flow.",
+            why: "Exhaust components can be difficult to remove when bolts are rusty or seized."
+        },
+
+        {
+            name: "ECU Tune",
+            price: 600,
+            difficulty: "Hard",
+            description: "Changes engine calibration to alter performance characteristics.",
+            why: "Tuning requires vehicle-specific software and knowledge. An incorrect tune can damage an engine."
+        }
+    ],
+
+    handling: [
+
+        {
+            name: "Performance Tires",
+            price: 650,
+            difficulty: "Easy",
+            description: "Improve grip and cornering performance.",
+            why: "The installation itself is straightforward for a tire shop, but choosing the correct tire is important."
+        },
+
+        {
+            name: "Lowering Springs",
+            price: 450,
+            difficulty: "Medium",
+            description: "Lower the vehicle and change its handling characteristics.",
+            why: "Suspension components must be safely removed and installed. An alignment is normally needed afterward."
+        },
+
+        {
+            name: "Coilovers",
+            price: 1000,
+            difficulty: "Hard",
+            description: "Adjustable suspension that can significantly change ride height and handling.",
+            why: "Installation requires suspension work and proper adjustment. Incorrect setup can negatively affect handling."
+        }
+    ],
+
+    interior: [
+
+        {
+            name: "Interior LED Kit",
+            price: 100,
+            difficulty: "Easy",
+            description: "Adds modern lighting to the cabin.",
+            why: "Many kits are simple plug-in or low-voltage installations."
+        },
+
+        {
+            name: "Interior Trim",
+            price: 250,
+            difficulty: "Easy",
+            description: "Replace or upgrade interior trim pieces.",
+            why: "Many trim pieces can be installed with basic hand tools and careful removal techniques."
+        },
+
+        {
+            name: "Seat Upgrade",
+            price: 500,
+            difficulty: "Medium",
+            description: "Upgrade seating for appearance, comfort or support.",
+            why: "Seats can involve mounting hardware, electrical connections and airbag systems."
+        }
+    ],
+
+    sound: [
+
+        {
+            name: "Speaker Upgrade",
+            price: 300,
+            difficulty: "Medium",
+            description: "Replace factory speakers with aftermarket speakers.",
+            why: "Door panels often need to be removed and vehicle-specific wiring adapters may be necessary."
+        },
+
+        {
+            name: "Subwoofer System",
+            price: 500,
+            difficulty: "Medium",
+            description: "Adds stronger low-frequency sound.",
+            why: "Installation requires wiring, power connections and proper placement."
+        },
+
+        {
+            name: "Amplifier",
+            price: 350,
+            difficulty: "Hard",
+            description: "Provides additional power for aftermarket audio equipment.",
+            why: "Amplifiers require proper power wiring and grounding. Incorrect wiring can damage electrical components."
+        }
+    ],
+
+    reliability: [
+
+        {
+            name: "Full Fluid Service",
+            price: 250,
+            difficulty: "Easy",
+            description: "Refresh important fluids and establish a maintenance baseline.",
+            why: "Routine fluid service is relatively straightforward when the correct fluids and procedures are followed."
+        },
+
+        {
+            name: "Brake Service",
+            price: 450,
+            difficulty: "Medium",
+            description: "Inspect and replace worn brake components.",
+            why: "Brake work is more involved because the braking system is safety-critical."
+        },
+
+        {
+            name: "Preventative Maintenance",
+            price: 300,
+            difficulty: "Medium",
+            description: "Address maintenance items before adding performance modifications.",
+            why: "The difficulty depends on which maintenance items the vehicle needs."
+        }
+    ]
+};
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const yearSelect = document.getElementById("year");
+const makeSelect = document.getElementById("make");
+const modelSelect = document.getElementById("model");
+
+const budgetInput = document.getElementById("budget");
+
+const vehicleStatus = document.getElementById("vehicleStatus");
+
+const results = document.getElementById("results");
+
+const vehicleResult = document.getElementById("vehicleResult");
+const budgetResult = document.getElementById("budgetResult");
+const totalResult = document.getElementById("totalResult");
+const remainingResult = document.getElementById("remainingResult");
+
+const modResults = document.getElementById("modResults");
+
+const vehiclePreview = document.getElementById("vehiclePreview");
+const vehicleImage = document.getElementById("vehicleImage");
+const vehiclePreviewName = document.getElementById("vehiclePreviewName");
+
+
+/* =====================================================
+   YEARS
+===================================================== */
+
+const availableYears = Object.keys(vehicles)
+    .map(Number)
+    .sort((a, b) => a - b);
+
+availableYears.forEach(year => {
+
+    const option = document.createElement("option");
+
+    option.value = year;
+    option.textContent = year;
+
+    yearSelect.appendChild(option);
+
+});
+
+
+/* =====================================================
+   YEAR CHANGE
+===================================================== */
+
+yearSelect.addEventListener("change", function() {
+
+    const year = this.value;
+
+    makeSelect.innerHTML =
+        '<option value="">Select make</option>';
+
+    modelSelect.innerHTML =
+        '<option value="">Select model</option>';
+
+    makeSelect.disabled = true;
+    modelSelect.disabled = true;
+
+    vehiclePreview.style.display = "none";
+
+    if (!year) {
+
+        vehicleStatus.textContent =
+            "Select a year to begin.";
+
+        return;
+    }
+
+    const data = vehicles[year];
+
+    Object.keys(data)
+        .sort()
+        .forEach(make => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = make;
+            option.textContent = make;
+
+            makeSelect.appendChild(option);
+
+        });
+
+    makeSelect.disabled = false;
+
+    vehicleStatus.textContent =
+        "Now select your vehicle make.";
+
+});
+
+
+/* =====================================================
+   MAKE CHANGE
+===================================================== */
+
+makeSelect.addEventListener("change", function() {
+
+    const year = yearSelect.value;
+    const make = this.value;
+
+    modelSelect.innerHTML =
+        '<option value="">Select model</option>';
+
+    modelSelect.disabled = true;
+
+    vehiclePreview.style.display = "none";
+
+    if (!year || !make) {
+
+        vehicleStatus.textContent =
+            "Select your vehicle make.";
+
+        return;
+    }
+
+    const models = vehicles[year][make];
+
+    models.forEach(model => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = model;
+        option.textContent = model;
+
+        modelSelect.appendChild(option);
+
+    });
+
+    modelSelect.disabled = false;
+
+    vehicleStatus.textContent =
+        "Now select your vehicle model.";
+
+});
+
+
+/* =====================================================
+   MODEL CHANGE
+===================================================== */
+
+modelSelect.addEventListener("change", function() {
+
+    const year = yearSelect.value;
+    const make = makeSelect.value;
+    const model = this.value;
+
+    if (!year || !make || !model) {
+
+        vehiclePreview.style.display = "none";
+
+        return;
+    }
+
+    vehicleStatus.textContent =
+        "Vehicle selected. Choose your budget and build goals.";
+
+    vehiclePreviewName.textContent =
+        year + " " + make + " " + model;
+
+    /*
+       This uses a generic vehicle image search URL.
+       Later we can replace this with a proper vehicle
+       image database/API.
+    */
+
+    const imageQuery =
+        encodeURIComponent(
+            year + " " + make + " " + model + " car"
+        );
+
+    vehicleImage.src =
+        "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80";
+
+    vehiclePreview.style.display = "block";
+
+});
+
+
+/* =====================================================
+   BUILD PLAN
+===================================================== */
+
+document.getElementById("buildButton")
+.addEventListener("click", buildPlan);
+
+
+function buildPlan() {
+
+    const year = yearSelect.value;
+    const make = makeSelect.value;
+    const model = modelSelect.value;
+
+    const budget =
+        Number(budgetInput.value);
+
+    if (!year || !make || !model) {
+
+        alert("Please select your year, make and model.");
+
+        return;
+    }
+
+    if (!budget || budget <= 0) {
+
+        alert("Please enter a modification budget.");
+
+        return;
+    }
+
+
+    const selectedGoals =
+        Array.from(
+            document.querySelectorAll(
+                '.goal input:checked'
+            )
+        ).map(input => input.value);
+
+
+    if (selectedGoals.length === 0) {
+
+        alert(
+            "Please select at least one build goal."
+        );
+
+        return;
+    }
+
+
+    let recommendations = [];
+
+
+    selectedGoals.forEach(goal => {
+
+        if (!mods[goal]) {
+            return;
+        }
+
+        mods[goal].forEach(mod => {
+
+            recommendations.push({
+                ...mod,
+                category: goal
+            });
+
+        });
+
+    });
+
+
+    /*
+       Sort less expensive modifications first.
+       This helps the user get the most out of
+       smaller budgets.
+    */
+
+    recommendations.sort(
+        (a, b) => a.price - b.price
+    );
+
+
+    let total = 0;
+
+    let chosenMods = [];
+
+
+    recommendations.forEach(mod => {
+
+        if (total + mod.price <= budget) {
+
+            chosenMods.push(mod);
+
+            total += mod.price;
+
+        }
+
+    });
+
+
+    /*
+       If nothing fits the budget, show the
+       cheapest recommendation so the user
+       knows where to start.
+    */
+
+    if (
+        chosenMods.length === 0 &&
+        recommendations.length > 0
+    ) {
+
+        chosenMods.push(recommendations[0]);
+
+        total = recommendations[0].price;
+
+    }
+
+
+    const remaining =
+        budget - total;
+
+
+    vehicleResult.textContent =
+        `${year} ${make} ${model}`;
+
+    budgetResult.textContent =
+        `$${budget.toLocaleString()}`;
+
+    totalResult.textContent =
+        `$${total.toLocaleString()}`;
+
+    remainingResult.textContent =
+        remaining >= 0
+            ? `$${remaining.toLocaleString()}`
+            : `-$${Math.abs(remaining).toLocaleString()}`;
+
+
+    modResults.innerHTML = "";
+
+
+    if (chosenMods.length === 0) {
+
+        modResults.innerHTML =
+            '<div class="empty">No recommendations found.</div>';
+
+    } else {
+
+        chosenMods.forEach(mod => {
+
+            const div =
+                document.createElement("div");
+
+            div.className = "mod";
+
+
+            const difficultyClass =
+                mod.difficulty.toLowerCase();
+
+
+            const searchTerm =
+                encodeURIComponent(
+                    `${year} ${make} ${model} ${mod.name}`
+                );
+
+
+            /*
+               Replace this URL later with your
+               approved eBay affiliate tracking URL.
+            */
+
+            const ebayURL =
+                `https://www.ebay.com/sch/i.html?_nkw=${searchTerm}`;
+
+
+            div.innerHTML = `
+
+                <h3>${mod.name}</h3>
+
+                <div class="mod-price">
+                    Estimated Cost:
+                    $${mod.price.toLocaleString()}
+                </div>
+
+                <span class="difficulty ${difficultyClass}">
+                    ${mod.difficulty}
+                </span>
+
+                <p class="mod-description">
+                    ${mod.description}
+                </p>
+
+                <div class="why">
+
+                    <strong>
+                        Why is this ${mod.difficulty.toLowerCase()}?
+                    </strong>
+
+                    <br>
+
+                    ${mod.why}
+
+                </div>
+
+                <a
+                    class="shop-button"
+                    href="${ebayURL}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Find Parts on eBay
+                </a>
+
+            `;
+
+            modResults.appendChild(div);
+
+        });
+
+    }
+
+
+    results.style.display = "block";
+
+    results.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
