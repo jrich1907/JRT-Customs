@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>JRT CUSTOMS</title>
+<title>JRT Customs</title>
 
 <style>
 * {
@@ -350,6 +350,28 @@ footer {
         margin-top: -35px;
     }
 }
+
+
+/* ===== BUILD ENHANCEMENTS ===== */
+.style-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.build-style{position:relative}
+.build-style input{position:absolute;opacity:0}
+.style-box{display:block;padding:16px;border:2px solid #e0e0e0;border-radius:15px;cursor:pointer;transition:.2s;height:100%;background:#fff}
+.style-box:hover{transform:translateY(-3px);border-color:#ff3b30}
+.build-style input:checked+.style-box{border-color:#ff3b30;background:#fff4f3;box-shadow:0 8px 24px rgba(255,59,48,.12)}
+.style-icon{font-size:26px;margin-bottom:7px}.style-title{font-weight:800}.style-description{font-size:12px;color:#777;margin-top:4px}
+.build-dashboard{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-bottom:22px}
+.score-card{background:linear-gradient(135deg,#111,#292929);color:#fff;border-radius:22px;padding:24px}
+.score-top{display:flex;align-items:center;justify-content:space-between;gap:15px}.score-number{font-size:48px;font-weight:900;color:#ff4b40}.score-label{color:#aaa;text-transform:uppercase;font-size:11px;letter-spacing:1px}
+.score-bar,.budget-track{height:12px;background:#e8e8e8;border-radius:99px;overflow:hidden}.score-bar{background:#444;margin-top:15px}.score-fill,.budget-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#ff3b30,#ff8a65);transition:width .5s ease}
+.score-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}.score-mini{background:rgba(255,255,255,.08);border-radius:10px;padding:10px}.score-mini span{display:block;color:#aaa;font-size:11px}.score-mini strong{font-size:15px}
+.budget-card{background:#fff;border:1px solid #ddd;border-radius:22px;padding:24px}.budget-card h3{margin-bottom:6px}.budget-numbers{display:flex;justify-content:space-between;font-weight:800;margin:16px 0 8px}.budget-fill.over{background:#b00020}.budget-message{font-size:13px;color:#666;margin-top:9px}
+.style-result{display:inline-flex;align-items:center;gap:7px;margin-top:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.1);font-size:12px}
+.learn-button{border:0;background:#f2f2f2;color:#111;padding:9px 12px;border-radius:9px;font-weight:700;cursor:pointer;margin-top:12px}.learn-button:hover{background:#ffebe9}.learn-box{display:none;margin-top:10px;padding:13px;border-radius:11px;background:#f7f7f7;color:#444;font-size:13px;line-height:1.5}.learn-box.open{display:block}.learn-box strong{color:#111}
+.vehicle-preview{display:none;margin-top:18px;border-radius:16px;overflow:hidden;background:#111;color:#fff}.vehicle-preview img{width:100%;max-height:300px;object-fit:cover;display:none}.image-loading{padding:14px;text-align:center;color:#bbb;font-size:13px}.preview-caption{padding:14px}.preview-caption strong{font-size:18px}
+@media(max-width:900px){.style-grid{grid-template-columns:repeat(2,1fr)}.build-dashboard{grid-template-columns:1fr}}
+@media(max-width:600px){.style-grid{grid-template-columns:1fr 1fr}.score-breakdown{grid-template-columns:1fr 1fr}.style-box{padding:13px}.style-description{font-size:11px}}
+
 </style>
 
 </head>
@@ -358,7 +380,6 @@ footer {
 
 <section class="hero">
 
-```
 <div class="hero-content">
 
     <div class="badge">
@@ -375,7 +396,6 @@ footer {
     </p>
 
 </div>
-```
 
 </section>
 
@@ -383,7 +403,6 @@ footer {
 
 <section class="card">
 
-```
 <h2>Choose Your Vehicle</h2>
 
 <p class="section-subtitle">
@@ -464,13 +483,36 @@ footer {
 <div class="status" id="status">
     Select a year to begin.
 </div>
-```
+
+<div class="vehicle-preview" id="vehiclePreview">
+    <div class="image-loading" id="imageLoading">Vehicle preview will appear after you build.</div>
+    <img id="carImage" alt="Selected vehicle preview">
+    <div class="preview-caption"><strong id="previewVehicle">Your vehicle</strong></div>
+</div>
 
 </section>
 
 <section class="card">
 
-```
+<h2>Choose Your Build Style</h2>
+
+<p class="section-subtitle">Tell us what kind of build you want. Your score and recommendations will adapt to it.</p>
+
+<div class="style-grid">
+    <label class="build-style"><input type="radio" name="buildStyle" value="street" checked><span class="style-box"><div class="style-icon">🏙️</div><div class="style-title">Street</div><div class="style-description">Balanced and practical.</div></span></label>
+    <label class="build-style"><input type="radio" name="buildStyle" value="performance"><span class="style-box"><div class="style-icon">🏁</div><div class="style-title">Track</div><div class="style-description">Performance first.</div></span></label>
+    <label class="build-style"><input type="radio" name="buildStyle" value="clean"><span class="style-box"><div class="style-icon">✨</div><div class="style-title">Clean</div><div class="style-description">Simple and polished.</div></span></label>
+    <label class="build-style"><input type="radio" name="buildStyle" value="aggressive"><span class="style-box"><div class="style-icon">🔥</div><div class="style-title">Aggressive</div><div class="style-description">Bold and attention-grabbing.</div></span></label>
+    <label class="build-style"><input type="radio" name="buildStyle" value="offroad"><span class="style-box"><div class="style-icon">🏜️</div><div class="style-title">Off-Road</div><div class="style-description">Built for tougher terrain.</div></span></label>
+    <label class="build-style"><input type="radio" name="buildStyle" value="show"><span class="style-box"><div class="style-icon">💎</div><div class="style-title">Show Car</div><div class="style-description">Looks are the priority.</div></span></label>
+    <label class="build-style"><input type="radio" name="buildStyle" value="jdm"><span class="style-box"><div class="style-icon">🌙</div><div class="style-title">JDM</div><div class="style-description">Tuner-inspired styling.</div></span></label>
+    <label class="build-style"><input type="radio" name="buildStyle" value="sound"><span class="style-box"><div class="style-icon">🔊</div><div class="style-title">Sound</div><div class="style-description">Build around your audio.</div></span></label>
+</div>
+
+</section>
+
+<section class="card">
+
 <h2>
     What Do You Want To Improve?
 </h2>
@@ -652,13 +694,32 @@ footer {
 >
     🚗 Build My Plan
 </button>
-```
 
 </section>
 
 <section id="results">
 
-```
+<div class="build-dashboard">
+    <div class="score-card">
+        <div class="score-top">
+            <div><div class="score-label">Your Build Score</div><div class="score-number" id="buildScore">0</div></div>
+            <div id="styleResult" class="style-result">🏙️ Street</div>
+        </div>
+        <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+        <div class="score-breakdown">
+            <div class="score-mini"><span>Goals</span><strong id="goalScore">0/100</strong></div>
+            <div class="score-mini"><span>Budget</span><strong id="budgetScore">0/100</strong></div>
+            <div class="score-mini"><span>Style</span><strong id="styleScore">0/100</strong></div>
+        </div>
+    </div>
+    <div class="budget-card">
+        <h3>💰 Build Budget</h3>
+        <div class="budget-numbers"><span id="budgetUsedLabel">$0 used</span><span id="budgetTotalLabel">$0 budget</span></div>
+        <div class="budget-track"><div class="budget-fill" id="budgetFill"></div></div>
+        <div class="budget-message" id="budgetMessage">Build your plan to see how far your budget goes.</div>
+    </div>
+</div>
+
 <div class="summary">
 
     <h2>
@@ -777,7 +838,6 @@ footer {
     </div>
 
 </section>
-```
 
 </section>
 
@@ -785,10 +845,8 @@ footer {
 
 <footer>
 
-```
 Customize My Ride © 2026
 • Build smarter. Learn more. Drive better.
-```
 
 </footer>
 <script>
@@ -1704,6 +1762,55 @@ function createEbayAffiliateLink(
 
 
 /* =========================================================
+   BUILD STYLE + SCORE HELPERS
+   ========================================================= */
+
+const buildStyles = {
+    street: {icon:"🏙️", name:"Street", score:85, preferred:["appearance","handling","reliability"]},
+    performance: {icon:"🏁", name:"Track", score:95, preferred:["performance","handling"]},
+    clean: {icon:"✨", name:"Clean", score:90, preferred:["appearance","interior","reliability"]},
+    aggressive: {icon:"🔥", name:"Aggressive", score:92, preferred:["appearance","performance","handling"]},
+    offroad: {icon:"🏜️", name:"Off-Road", score:90, preferred:["handling","reliability"]},
+    show: {icon:"💎", name:"Show Car", score:94, preferred:["appearance","interior","sound"]},
+    jdm: {icon:"🌙", name:"JDM", score:93, preferred:["appearance","performance","handling"]},
+    sound: {icon:"🔊", name:"Sound", score:90, preferred:["sound","interior"]}
+};
+
+function getSelectedStyle(){
+    return document.querySelector('input[name="buildStyle"]:checked')?.value || "street";
+}
+
+function calculateBuildScore(selectedGoals, budget, total, styleKey){
+    const style = buildStyles[styleKey] || buildStyles.street;
+    const goalScore = Math.min(100, 55 + selectedGoals.length * 8);
+    const budgetScore = total <= budget ? Math.max(60, 100 - Math.round((budget-total)/Math.max(budget,1)*35)) : 35;
+    const styleMatch = selectedGoals.length ? Math.min(100, style.score + selectedGoals.filter(g => style.preferred.includes(g)).length * 3) : style.score;
+    return { overall: Math.round((goalScore + budgetScore + styleMatch) / 3), goalScore, budgetScore, styleScore: styleMatch };
+}
+
+function updateBuildDashboard(score, budget, total, styleKey){
+    const style = buildStyles[styleKey] || buildStyles.street;
+    const overall = Math.max(0, Math.min(100, score.overall));
+    document.getElementById("buildScore").textContent = overall;
+    document.getElementById("scoreFill").style.width = overall + "%";
+    document.getElementById("goalScore").textContent = score.goalScore + "/100";
+    document.getElementById("budgetScore").textContent = score.budgetScore + "/100";
+    document.getElementById("styleScore").textContent = score.styleScore + "/100";
+    document.getElementById("styleResult").textContent = `${style.icon} ${style.name}`;
+
+    const used = Math.max(0, total);
+    const percent = budget > 0 ? Math.min(100, Math.round(used / budget * 100)) : 0;
+    const fill = document.getElementById("budgetFill");
+    fill.style.width = percent + "%";
+    fill.classList.toggle("over", total > budget);
+    document.getElementById("budgetUsedLabel").textContent = `$${used.toLocaleString()} used`;
+    document.getElementById("budgetTotalLabel").textContent = `$${budget.toLocaleString()} budget`;
+    document.getElementById("budgetMessage").textContent = total > budget
+        ? `This plan is $${(total-budget).toLocaleString()} over budget. Consider removing a mod or increasing your budget.`
+        : `$${(budget-total).toLocaleString()} remains in your budget.`;
+}
+
+/* =========================================================
    10. BUILD PLAN
    ========================================================= */
 
@@ -1893,6 +2000,10 @@ function buildPlan() {
     ).textContent =
         `$${remaining.toLocaleString()}`;
 
+    const styleKey = getSelectedStyle();
+    const score = calculateBuildScore(selectedGoals, budget, total, styleKey);
+    updateBuildDashboard(score, budget, total, styleKey);
+
 
     /* -----------------------------------------
        DISPLAY MODS
@@ -2043,6 +2154,12 @@ function displayMods(
 
                 </div>
 
+                <button class="learn-button" type="button" onclick="toggleLearn(this)">📚 Learn About This Mod</button>
+                <div class="learn-box">
+                    <strong>What it does:</strong> ${escapeHTML(mod.description)}<br><br>
+                    <strong>Before you buy:</strong> Verify exact year, engine, trim and fitment. Installation difficulty is an estimate, and professional installation may be appropriate for suspension, brakes, wiring or tuning.
+                </div>
+
 
                 ${
                     affordable
@@ -2111,6 +2228,13 @@ function displayMods(
 }
 
 
+function toggleLearn(button){
+    const box = button.nextElementSibling;
+    if (!box) return;
+    box.classList.toggle("open");
+    button.textContent = box.classList.contains("open") ? "📖 Hide Mod Guide" : "📚 Learn About This Mod";
+}
+
 /* =========================================================
    12. SAFELY DISPLAY TEXT
    ========================================================= */
@@ -2178,8 +2302,11 @@ async function loadVehicleImage(
         "none";
 
 
+    const year = document.getElementById("year")?.value || "";
     const searchName =
-        `${formatMake(make)} ${model}`;
+        `${year} ${formatMake(make)} ${model}`;
+    const previewVehicle = document.getElementById("previewVehicle");
+    if (previewVehicle) previewVehicle.textContent = `${year} ${formatMake(make)} ${model}`;
 
 
     try {
@@ -2193,7 +2320,7 @@ async function loadVehicleImage(
 
             "&gsrsearch=" +
             encodeURIComponent(
-                searchName + " automobile"
+                searchName + " car"
             ) +
 
             "&gsrnamespace=6" +
@@ -2435,4 +2562,5 @@ buildPlan = function() {
 
 </body>
 </html>
+
 
