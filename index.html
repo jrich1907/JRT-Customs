@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-
+<!DOCTYPE ht
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -372,8 +371,45 @@ footer {
 @media(max-width:900px){.style-grid{grid-template-columns:repeat(2,1fr)}.build-dashboard{grid-template-columns:1fr}}
 @media(max-width:600px){.style-grid{grid-template-columns:1fr 1fr}.score-breakdown{grid-template-columns:1fr 1fr}.style-box{padding:13px}.style-description{font-size:11px}}
 
+
+/* =========================================================
+   MY GARAGE / SAVE BUILD
+   ========================================================= */
+.garage-card{background:linear-gradient(135deg,#111,#222);color:#fff;border-radius:22px;padding:26px;margin-bottom:22px;box-shadow:0 20px 50px rgba(0,0,0,.22)}
+.garage-header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.garage-header h2{margin:0;font-size:26px}
+.garage-header p{margin:6px 0 0;color:#aaa}
+.garage-count{background:rgba(255,255,255,.1);padding:8px 12px;border-radius:999px;font-size:13px;font-weight:bold}
+.garage-empty{margin-top:18px;padding:22px;border:1px dashed #555;border-radius:15px;text-align:center;color:#aaa}
+.garage-list{display:grid;gap:12px;margin-top:18px}
+.garage-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:17px}
+.garage-item-main{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}
+.garage-item h3{font-size:18px;margin-bottom:5px}
+.garage-meta{color:#aaa;font-size:13px;line-height:1.5}
+.garage-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.garage-button{border:0;border-radius:9px;padding:10px 14px;font-weight:bold;cursor:pointer;font-size:13px}
+.garage-load{background:#fff;color:#111}
+.garage-delete{background:#3a1616;color:#ffb1b1}
+.save-build-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;padding:15px;border-radius:12px;background:#fff;color:#111;font-size:16px;font-weight:bold;cursor:pointer;margin-top:18px;transition:.2s}
+.save-build-button:hover{transform:translateY(-2px);background:#f0f0f0}
+.save-build-message{font-size:13px;color:#9be7ac;margin-top:10px;min-height:18px}
+@media(max-width:700px){.garage-item-main{flex-direction:column}.garage-header{align-items:flex-start}}
+
+
+/* ===== ACCOUNT GARAGE ===== */
+.account-card{background:#fff;border-radius:22px;padding:24px;margin-bottom:22px;border:1px solid #ddd;box-shadow:0 15px 40px rgba(0,0,0,.08)}
+.account-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:end}
+.account-actions{display:flex;gap:10px;flex-wrap:wrap}
+.account-button{border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer}
+.account-primary{background:#111;color:#fff}.account-secondary{background:#eee;color:#111}.account-danger{background:#ffe2e0;color:#a00000}
+.account-status{margin-top:12px;padding:12px;border-radius:10px;background:#f5f5f5;color:#555;font-size:13px}
+.account-user{font-weight:800;margin-bottom:8px}
+.account-note{font-size:12px;color:#777;margin-top:8px;line-height:1.45}
+@media(max-width:700px){.account-grid{grid-template-columns:1fr}}
+
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -400,6 +436,51 @@ footer {
 </section>
 
 <main class="container">
+
+<section class="account-card" id="accountSection">
+    <h2>🔐 Your Garage Account</h2>
+    <p class="section-subtitle">Create a free account so your saved builds follow you across devices.</p>
+    <div id="accountLoggedOut">
+        <div class="account-grid">
+            <div>
+                <label for="accountEmail">Email</label>
+                <input type="email" id="accountEmail" placeholder="you@example.com" autocomplete="email">
+            </div>
+            <div>
+                <label for="accountPassword">Password</label>
+                <input type="password" id="accountPassword" placeholder="At least 6 characters" autocomplete="current-password">
+            </div>
+        </div>
+        <div class="account-actions" style="margin-top:14px;">
+            <button class="account-button account-primary" type="button" onclick="createGarageAccount()">Create Free Account</button>
+            <button class="account-button account-secondary" type="button" onclick="loginGarageAccount()">Log In</button>
+        </div>
+    </div>
+    <div id="accountLoggedIn" style="display:none;">
+        <div class="account-user">Signed in as <span id="accountUserEmail"></span></div>
+        <div class="account-actions">
+            <button class="account-button account-secondary" type="button" onclick="syncGarageNow()">☁️ Sync Garage</button>
+            <button class="account-button account-danger" type="button" onclick="logoutGarageAccount()">Log Out</button>
+        </div>
+    </div>
+    <div class="account-status" id="accountStatus">Your garage is currently saved on this device. Create an account to sync it across devices.</div>
+    <div class="account-note">Your build information is stored with your account only after you create/log into an account. eBay/EPN shopping links are not changed by this feature.</div>
+</section>
+
+<section class="garage-card" id="myGarage">
+    <div class="garage-header">
+        <div>
+            <h2>🚘 My Garage</h2>
+            <p>Save your builds and come back to them anytime on this device.</p>
+        </div>
+        <div class="garage-count" id="garageCount">0 saved builds</div>
+    </div>
+    <div id="garageList" class="garage-list"></div>
+    <div id="garageEmpty" class="garage-empty">
+        You haven't saved a build yet. Build your ride below, then save it here.
+    </div>
+</section>
+
 
 <section class="card">
 
@@ -812,6 +893,11 @@ footer {
 
 
     <div id="modResults"></div>
+
+    <button class="save-build-button" type="button" onclick="saveCurrentBuild()">
+        💾 Save This Build to My Garage
+    </button>
+    <div class="save-build-message" id="saveBuildMessage"></div>
 
 
     <div class="notice">
@@ -2469,6 +2555,415 @@ async function loadVehicleImage(
 }
 
 
+
+/* =========================================================
+   MY GARAGE / ACCOUNT SYNC
+   ========================================================= */
+const GARAGE_STORAGE_KEY = "customizeMyRideGarage";
+
+/*
+   SUPABASE SETUP
+   Replace these two values with your Supabase project values.
+   They are safe to use in browser code when Row Level Security (RLS)
+   is configured correctly on the garage_builds table.
+*/
+const SUPABASE_URL = "https://vjzfxnxnhstovgeuihrr.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_9ThWFIYT6HlCtiFjp1pmGw_YzCT4eaX";
+const SUPABASE_ENABLED =
+    SUPABASE_URL.startsWith("https://") &&
+    SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
+
+let supabaseClient = null;
+let currentGarageUser = null;
+
+if (SUPABASE_ENABLED && window.supabase) {
+    supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+}
+
+function getSavedBuilds(){
+    try {
+        const saved = JSON.parse(
+            localStorage.getItem(GARAGE_STORAGE_KEY) || "[]"
+        );
+        return Array.isArray(saved) ? saved : [];
+    } catch (error) {
+        console.log("Garage storage unavailable:", error);
+        return [];
+    }
+}
+
+function setSavedBuilds(builds){
+    localStorage.setItem(
+        GARAGE_STORAGE_KEY,
+        JSON.stringify(builds)
+    );
+}
+
+function setAccountStatus(message, success=false){
+    const box = document.getElementById("accountStatus");
+    if (!box) return;
+    box.textContent = message;
+    box.style.color = success ? "#176b2c" : "#555";
+    box.style.background = success ? "#e8f7ec" : "#f5f5f5";
+}
+
+function updateAccountUI(){
+    const loggedOut = document.getElementById("accountLoggedOut");
+    const loggedIn = document.getElementById("accountLoggedIn");
+    const email = document.getElementById("accountUserEmail");
+
+    if (currentGarageUser) {
+        if (loggedOut) loggedOut.style.display = "none";
+        if (loggedIn) loggedIn.style.display = "block";
+        if (email) email.textContent = currentGarageUser.email || "your account";
+        setAccountStatus("✓ Your garage is connected and can sync across devices.", true);
+    } else {
+        if (loggedOut) loggedOut.style.display = "block";
+        if (loggedIn) loggedIn.style.display = "none";
+        if (SUPABASE_ENABLED) {
+            setAccountStatus("Log in or create a free account to sync your garage across devices.");
+        } else {
+            setAccountStatus("Your garage is currently saved on this device. Add your Supabase keys to enable account sync.");
+        }
+    }
+}
+
+async function createGarageAccount(){
+    if (!supabaseClient) {
+        alert("Account sync is not configured yet. Add your Supabase URL and anon key in this file first.");
+        return;
+    }
+
+    const email = document.getElementById("accountEmail")?.value.trim();
+    const password = document.getElementById("accountPassword")?.value;
+
+    if (!email || !password || password.length < 6) {
+        alert("Enter a valid email and a password with at least 6 characters.");
+        return;
+    }
+
+    setAccountStatus("Creating your free account...");
+
+    const { data, error } = await supabaseClient.auth.signUp({
+        email,
+        password
+    });
+
+    if (error) {
+        setAccountStatus(error.message);
+        return;
+    }
+
+    if (data.user && !data.session) {
+        setAccountStatus("✓ Account created. Check your email to confirm your account, then log in.", true);
+        return;
+    }
+
+    currentGarageUser = data.user;
+    updateAccountUI();
+    await syncGarageNow();
+}
+
+async function loginGarageAccount(){
+    if (!supabaseClient) {
+        alert("Account sync is not configured yet. Add your Supabase URL and anon key in this file first.");
+        return;
+    }
+
+    const email = document.getElementById("accountEmail")?.value.trim();
+    const password = document.getElementById("accountPassword")?.value;
+
+    if (!email || !password) {
+        alert("Enter your email and password.");
+        return;
+    }
+
+    setAccountStatus("Logging you in...");
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+    });
+
+    if (error) {
+        setAccountStatus(error.message);
+        return;
+    }
+
+    currentGarageUser = data.user;
+    updateAccountUI();
+    await syncGarageNow();
+}
+
+async function logoutGarageAccount(){
+    if (!supabaseClient) return;
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) {
+        setAccountStatus(error.message);
+        return;
+    }
+    currentGarageUser = null;
+    updateAccountUI();
+}
+
+async function loadCloudGarage(){
+    if (!supabaseClient || !currentGarageUser) return null;
+
+    const { data, error } = await supabaseClient
+        .from("garage_builds")
+        .select("id, build_data, created_at")
+        .eq("user_id", currentGarageUser.id)
+        .order("created_at", { ascending:false });
+
+    if (error) {
+        console.error("Cloud garage load failed:", error);
+        setAccountStatus("Your account is connected, but the garage database could not be loaded. Check your Supabase table/RLS setup.");
+        return null;
+    }
+
+    return (data || []).map(row => ({
+        ...row.build_data,
+        cloudId: row.id,
+        savedAt: row.build?.savedAt || row.created_at
+    }));
+}
+
+async function syncGarageNow(){
+    if (!supabaseClient || !currentGarageUser) {
+        renderGarage();
+        return;
+    }
+
+    setAccountStatus("☁️ Syncing your garage...");
+
+    const localBuilds = getSavedBuilds();
+    const cloudBuilds = await loadCloudGarage();
+
+    if (cloudBuilds === null) return;
+
+    /* Upload local-only builds to the account. */
+    const cloudIds = new Set(cloudBuilds.map(b => b.id));
+    const localOnly = localBuilds.filter(b => !cloudIds.has(b.id));
+
+    if (localOnly.length) {
+        const rows = localOnly.map(build => ({
+            user_id: currentGarageUser.id,
+            build_data: build
+        }));
+
+        const { error } = await supabaseClient
+            .from("garage_builds")
+            .insert(rows);
+
+        if (error) {
+            console.error("Cloud garage upload failed:", error);
+            setAccountStatus("Your account works, but the local builds could not be uploaded. Check your Supabase table/RLS setup.");
+            return;
+        }
+    }
+
+    const refreshed = await loadCloudGarage();
+    if (refreshed) {
+        setSavedBuilds(refreshed.slice(0,20));
+        renderGarage();
+        setAccountStatus("✓ Garage synced successfully across devices.", true);
+    }
+}
+
+async function saveCurrentBuild(){
+    const year = yearSelect.value;
+    const make = makeSelect.value;
+    const model = modelSelect.value;
+    const budget = Number(document.getElementById("budget")?.value || 0);
+    const selectedGoals = Array.from(
+        document.querySelectorAll(".goal input:checked")
+    ).map(input => input.value);
+    const styleKey = getSelectedStyle();
+
+    if(!year || !make || !model || budget < 50 || selectedGoals.length === 0){
+        alert("Build your vehicle, budget and goals first, then save it to My Garage.");
+        return;
+    }
+
+    const style = buildStyles[styleKey] || buildStyles.street;
+    const buildName = `${year} ${formatMake(make)} ${model}`;
+    const existing = getSavedBuilds();
+
+    const build = {
+        id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
+        name: buildName,
+        year,
+        make,
+        model,
+        budget,
+        goals: selectedGoals,
+        styleKey,
+        styleName: style.name,
+        styleIcon: style.icon,
+        savedAt: new Date().toISOString()
+    };
+
+    existing.unshift(build);
+    setSavedBuilds(existing.slice(0,20));
+    renderGarage();
+
+    if (supabaseClient && currentGarageUser) {
+        setAccountStatus("☁️ Saving your build to your account...");
+
+        const { error } = await supabaseClient
+            .from("garage_builds")
+            .insert({
+                user_id: currentGarageUser.id,
+                build_data: build
+            });
+
+        if (error) {
+            console.error("Cloud save failed:", error);
+            setAccountStatus("Saved on this device, but cloud save failed. Your build is not lost.");
+        } else {
+            setAccountStatus("✓ Build saved to your account.", true);
+        }
+    }
+
+    const message = document.getElementById("saveBuildMessage");
+    if(message){
+        message.textContent = `✓ ${buildName} was saved to My Garage.`;
+        setTimeout(() => { message.textContent = ""; }, 3500);
+    }
+}
+
+function loadSavedBuild(id){
+    const build = getSavedBuilds().find(item => item.id === id);
+    if(!build) return;
+
+    yearSelect.value = build.year;
+    yearSelect.dispatchEvent(new Event("change"));
+
+    makeSelect.value = build.make;
+    makeSelect.dispatchEvent(new Event("change"));
+
+    modelSelect.value = build.model;
+    document.getElementById("budget").value = build.budget;
+
+    document.querySelectorAll(".goal input").forEach(input => {
+        input.checked = build.goals.includes(input.value);
+    });
+
+    const styleInput = document.querySelector(
+        `input[name="buildStyle"][value="${CSS.escape(build.styleKey)}"]`
+    );
+    if(styleInput) styleInput.checked = true;
+
+    buildPlan();
+    document.getElementById("results")?.scrollIntoView({behavior:"smooth"});
+}
+
+async function deleteSavedBuild(id){
+    const builds = getSavedBuilds();
+    const build = builds.find(item => item.id === id);
+
+    if (!build) return;
+
+    if (!confirm(`Delete ${build.name} from My Garage?`)) return;
+
+    setSavedBuilds(builds.filter(item => item.id !== id));
+    renderGarage();
+
+    if (supabaseClient && currentGarageUser) {
+        const { error } = await supabaseClient
+            .from("garage_builds")
+            .delete()
+            .eq("user_id", currentGarageUser.id)
+            .eq("build_data->>id", id);
+
+        if (error) {
+            console.error("Cloud delete failed:", error);
+            setAccountStatus("Removed locally, but the cloud copy could not be deleted.");
+        } else {
+            setAccountStatus("✓ Build deleted from your account.", true);
+        }
+    }
+}
+
+function formatSavedDate(iso){
+    try {
+        return new Date(iso).toLocaleDateString(undefined, {
+            month:"short",
+            day:"numeric",
+            year:"numeric"
+        });
+    } catch {
+        return "Saved build";
+    }
+}
+
+function renderGarage(){
+    const list = document.getElementById("garageList");
+    const empty = document.getElementById("garageEmpty");
+    const count = document.getElementById("garageCount");
+    if(!list || !empty || !count) return;
+
+    const builds = getSavedBuilds();
+    count.textContent = `${builds.length} saved build${builds.length === 1 ? "" : "s"}`;
+    empty.style.display = builds.length ? "none" : "block";
+
+    list.innerHTML = builds.map(build => {
+        const goals = (build.goals || [])
+            .map(goal => goal.charAt(0).toUpperCase()+goal.slice(1))
+            .join(" • ");
+
+        return `
+            <div class="garage-item">
+                <div class="garage-item-main">
+                    <div>
+                        <h3>${escapeHTML(build.styleIcon || "🚗")} ${escapeHTML(build.name)}</h3>
+                        <div class="garage-meta">
+                            ${escapeHTML(build.styleName || "Street")} • $${Number(build.budget).toLocaleString()} budget<br>
+                            ${escapeHTML(goals || "Custom build")}<br>
+                            Saved ${escapeHTML(formatSavedDate(build.savedAt))}
+                        </div>
+                    </div>
+                </div>
+                <div class="garage-actions">
+                    <button class="garage-button garage-load" type="button" onclick="loadSavedBuild('${escapeHTML(build.id)}')">
+                        ↩️ Load Build
+                    </button>
+                    <button class="garage-button garage-delete" type="button" onclick="deleteSavedBuild('${escapeHTML(build.id)}')">
+                        🗑️ Delete
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+async function initializeGarageAccount(){
+    if (!supabaseClient) {
+        updateAccountUI();
+        renderGarage();
+        return;
+    }
+
+    const { data } = await supabaseClient.auth.getSession();
+    currentGarageUser = data?.session?.user || null;
+    updateAccountUI();
+
+    if (currentGarageUser) {
+        await syncGarageNow();
+    } else {
+        renderGarage();
+    }
+
+    supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+        currentGarageUser = session?.user || null;
+        updateAccountUI();
+        if (currentGarageUser) await syncGarageNow();
+    });
+}
+
 /* =========================================================
    14. INITIALIZE
    ========================================================= */
@@ -2507,6 +3002,9 @@ document.addEventListener(
                 "status";
 
         }
+
+        renderGarage();
+        initializeGarageAccount();
 
     }
 );
@@ -2562,5 +3060,3 @@ buildPlan = function() {
 
 </body>
 </html>
-
-
